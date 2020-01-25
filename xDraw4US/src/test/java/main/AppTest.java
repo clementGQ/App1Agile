@@ -1,10 +1,9 @@
-package xDraw4US;
+package main;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertTrue;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import controller.MainApp;
 import javafx.stage.Stage;
 
 

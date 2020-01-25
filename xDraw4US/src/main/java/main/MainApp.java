@@ -1,7 +1,8 @@
-package controller;
+package main;
 
 import java.io.IOException;
 
+import controllers.HorizontalBarController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("../views/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -51,17 +52,17 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader1 = new FXMLLoader();
-            loader1.setLocation(MainApp.class.getResource("../view/PaletteLayout.fxml"));
+            loader1.setLocation(MainApp.class.getResource("../views/PaletteLayout.fxml"));
             BorderPane paletteLayout = (BorderPane) loader1.load();
             
             FXMLLoader loader2 = new FXMLLoader();
-            loader2.setLocation(MainApp.class.getResource("../view/HorizontalPalette.fxml"));
+            loader2.setLocation(MainApp.class.getResource("../views/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
             HorizontalBarController hbController = loader2.getController();
             hbController.setMainApp(this);
             
             FXMLLoader loader3 = new FXMLLoader();
-            loader3.setLocation(MainApp.class.getResource("../view/VerticalPalette.fxml"));
+            loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
             
             rootLayout.setCenter(paletteLayout);

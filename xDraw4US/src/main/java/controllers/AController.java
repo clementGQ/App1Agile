@@ -1,4 +1,6 @@
-package controller;
+package controllers;
+
+import main.MainApp;
 
 public abstract class AController {
 	protected MainApp mainApp;

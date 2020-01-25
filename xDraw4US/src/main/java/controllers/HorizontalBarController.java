@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 
 import javafx.fxml.FXML;
@@ -20,8 +20,10 @@ public class HorizontalBarController extends AController{
         	mainApp.getPrimaryStage().setMaximized(false);
         	mainApp.getPrimaryStage().setHeight(600);    	
         	mainApp.getPrimaryStage().setWidth(800);
+        	minOrMaxButton.setText("Maximize");
     	}else {
         	mainApp.getPrimaryStage().setMaximized(true);
+        	minOrMaxButton.setText("800x600");
     	}
     }
 }
