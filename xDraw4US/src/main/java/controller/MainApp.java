@@ -8,11 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.DrawAreaController;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private DrawAreaController drawAreaController;
+    private DrawingSheetController drawingSheetController;
+    
+    
 
     @Override
     public void start(Stage primaryStage) {
@@ -22,6 +27,11 @@ public class MainApp extends Application {
         initRootLayout();
 
         showPalettes();
+        /*
+        drawAreaController = new DrawAreaController();
+        drawingSheetController = new DrawingSheetController(drawAreaController.getDrawingSheetList().get(0));
+        drawingSheetController.draw();*/
+        
     }
     
     /**
@@ -49,21 +59,30 @@ public class MainApp extends Application {
     public void showPalettes() {
         try {
             // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../view/PaletteLayout.fxml"));
+            BorderPane paletteLayout = (BorderPane) loader.load();
+            
             FXMLLoader loader1 = new FXMLLoader();
-            loader1.setLocation(MainApp.class.getResource("../view/PaletteLayout.fxml"));
-            BorderPane paletteLayout = (BorderPane) loader1.load();
+            loader1.setLocation(MainApp.class.getResource("../view/HorizontalPalette.fxml"));
+            AnchorPane horizontalPalette = (AnchorPane) loader1.load();
             
             FXMLLoader loader2 = new FXMLLoader();
-            loader2.setLocation(MainApp.class.getResource("../view/HorizontalPalette.fxml"));
-            AnchorPane horizontalPalette = (AnchorPane) loader2.load();
+            loader2.setLocation(MainApp.class.getResource("../view/VerticalPalette.fxml"));
+            AnchorPane verticalPalette = (AnchorPane) loader2.load();
             
             FXMLLoader loader3 = new FXMLLoader();
-            loader3.setLocation(MainApp.class.getResource("../view/VerticalPalette.fxml"));
-            AnchorPane verticalPalette = (AnchorPane) loader3.load();
+            loader3.setLocation(MainApp.class.getResource("../view/DrawArea.fxml"));
+            AnchorPane drawArea = (AnchorPane) loader3.load();
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
             paletteLayout.setLeft(verticalPalette);
+            paletteLayout.setCenter(drawArea);
+            
+            //DrawAreaController controller = loader.getController();
+            //controller.setMainApp(this);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,3 +100,5 @@ public class MainApp extends Application {
         launch(args);
     }
 }
+
+
