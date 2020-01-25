@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+
 public class MainApp extends Application {
 
     private Stage primaryStage;
@@ -56,6 +57,8 @@ public class MainApp extends Application {
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(MainApp.class.getResource("../view/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
+            HorizontalBarController hbController = loader2.getController();
+            hbController.setMainApp(this);
             
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../view/VerticalPalette.fxml"));
@@ -71,11 +74,12 @@ public class MainApp extends Application {
     
     /**
      * Returns the main stage.
-     * @return
+     * @return the primary stage
      */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+    
 
     public static void main(String[] args) {
         launch(args);

@@ -5,25 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.HorizontalBarController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="HORIZONTAL" prefHeight="50.0" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <Button mnemonicParsing="false" text="Rouge" />
-        <Button mnemonicParsing="false" prefWidth="55.0" text="Vert" />
-        <Button mnemonicParsing="false" text="Bleu" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
+        <ColorPicker />
+        <Button id="maxmin" fx:id="minOrMaxButton" mnemonicParsing="false" onAction="#minOrMaximize" text="Maximize" />
       </items>
     </ToolBar>
   </children>
