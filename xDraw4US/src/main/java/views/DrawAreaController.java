@@ -21,9 +21,7 @@ public class DrawAreaController extends AController{
 		createDrawingSheet();
 	}
 	
-	public void createDrawingSheet() {
-		drawingSheetList.add(new DrawingSheet());
-	}
+	public void createDrawingSheet() {}
 	
 	@FXML
     private void initialize() {

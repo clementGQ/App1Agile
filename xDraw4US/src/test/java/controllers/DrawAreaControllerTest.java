@@ -25,6 +25,8 @@ class DrawAreaControllerTest extends ApplicationTest {
         // given: app started with no shapes drawn
     	assertTrue(ma.getDaController().getDrawingSheetList().get(0).getShapesList().isEmpty(), "List of shapes must be empty");
     	// do: draw a shape    	
+    		// select rectangle
+    	clickOn("#rectangleButton");
     		// -> drag and drop
     	moveTo(ma.getPrimaryStage());
     	press(MouseButton.PRIMARY);
