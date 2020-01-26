@@ -25,21 +25,20 @@
     		</value>
         </ColorPicker>
          -->
-        <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
-        <Label font="$x1" text="Contour :" />
-        <ColorPicker fx:id="colorStrokePicker">
-          <value>
-            <Color blue="0.000" green="0.000" red="0.000" />
-          </value>
-        </ColorPicker>
-        <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
-        <!-- <MenuButton id="patternFillingMenuButton" fx:id="fillingPatternMenuButton" mnemonicParsing="false" onAction="#patternFillingSelection" prefWidth="150.0" text="Pattern filling">
-          <items>
-            <MenuItem fx:id="fillingPattern1" mnemonicParsing="false" onAction="#fillingPattern1Selection" text="Coockie" />
-            <MenuItem fx:id="fillingPattern2" mnemonicParsing="false" onAction="#fillingPattern2Selection" text="option2" />
-            <MenuItem fx:id="fillingPattern3" mnemonicParsing="false" onAction="#fillingPattern3Selection" text="option3" />
-          </items>
-        </MenuButton> -->
+            <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
+            <Label text="Contour :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ColorPicker fx:id="colorStrokePicker">
+               <value>
+                  <Color blue="0.0" green="0.0" red="0.0" />
+               </value>
+            </ColorPicker>
+            <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
+        <Pane HBox.hgrow="ALWAYS" />
+        <Button fx:id="deleteButton" mnemonicParsing="false" style="-fx-background-color: #ff5544;" text="Delete All" />
         <Button fx:id="minOrMaxButton" mnemonicParsing="false" onAction="#minOrMaximize" text="Maximize" />
       </items>
     </ToolBar>

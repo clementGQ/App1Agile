@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -23,7 +26,6 @@ public class DrawingSheet extends Pane {
 	
 	private ChoiceBox<String> fillingPatternSelection;
 	private ChoiceBox<String> strokeSizeSelection;
-	//private ColorPicker colorPicker;
 	private ColorPicker colorStrokePicker;
 
 	double orgSceneX, orgSceneY;
@@ -125,33 +127,15 @@ public class DrawingSheet extends Pane {
 					shapeSelected.setOpacity(0.5);
 					colorStrokePicker.setValue((Color)shapeSelected.getStroke());
 				});
-				
-				
+				shape1.setOnKeyPressed(e -> {
+					if (e.getCode() == KeyCode.RIGHT) {
+					    System.out.println("test");
+					}
+				});	
 				shapesList.add(shape1);
-				System.out.println("nombre de formes : " + shapesList.size());
-				System.out.println("nombre de children : " + nbChildrenMax);
 				nbChildrenMax++;
 			}
 		});
-		
-		/*
-		this.setOnKeyPressed(e -> {
-			if(shapeSelected != null ) {					//Shape Selected
-			    if (e.getCode() == KeyCode.RIGHT) {
-			    	//shapeSelected.setRotate(shapeSelected.getRotate()+2);   //Rotation
-			    	shapeSelected.setTranslateX(shapeSelected.getTranslateX()+2);
-			    }
-			    if (e.getCode() == KeyCode.LEFT) {
-			    	shapeSelected.setTranslateX(shapeSelected.getTranslateX()-2);
-			    }
-			    if (e.getCode() == KeyCode.UP) {
-			    	shapeSelected.setTranslateY(shapeSelected.getTranslateY()-2);
-			    }
-			    if (e.getCode() == KeyCode.DOWN) {
-			    	shapeSelected.setTranslateY(shapeSelected.getTranslateY()+2);
-			    }
-			}
-		});*/
 	}
 	
 	/**
@@ -161,13 +145,17 @@ public class DrawingSheet extends Pane {
 	public ArrayList<Shape> getShapesList() {
 		return shapesList;
 	}
+	public void setDeleteButtonListener() {
+		this.hpController.getDeleteButton().setOnAction((t) -> {
+			System.out.println("delete");
+			nbChildrenMax = 1;
+			this.getChildren().clear();
+			shapesList.clear();
+			shapeSelected = null;
+		});
+	}
+	
 	public void setColorPickerListener() {
-		//this.colorPicker = this.hpController.getColorPicker();
-		/*colorPicker.setOnAction((t) -> {
-			if(shapeSelected != null) {
-				shapeSelected.setFill(colorPicker.getValue());
-			}
-		});*/
 		this.colorStrokePicker = this.hpController.getColorStrokePicker();
 		colorStrokePicker.setOnAction((t) -> {
 			if(shapeSelected != null) {
@@ -197,6 +185,35 @@ public class DrawingSheet extends Pane {
 		});
 	}
 	
+	public void keyPressedEvent(String Key) {
+		if(shapeSelected != null) {
+			switch(Key) {
+			  case "Z":
+				  shapeSelected.setTranslateY(shapeSelected.getTranslateY()-2);
+				  break;
+			  case "Q":
+				  shapeSelected.setTranslateX(shapeSelected.getTranslateX()-2);
+				  break;
+			  case "S":
+				  shapeSelected.setTranslateY(shapeSelected.getTranslateY()+2);
+				  break;
+			  case "D":
+				  shapeSelected.setTranslateX(shapeSelected.getTranslateX()+2);
+				  break;
+			  case "A":
+				  shapeSelected.setScaleX(shapeSelected.getScaleX()+0.05);
+				  shapeSelected.setScaleY(shapeSelected.getScaleY()+0.05);
+				  break;
+			  case "E":
+				  shapeSelected.setScaleX(shapeSelected.getScaleX()-0.05);
+				  shapeSelected.setScaleY(shapeSelected.getScaleY()-0.05);
+				  break;
+			  case "R":
+				  shapeSelected.setRotate(shapeSelected.getRotate()+2);
+				  break;
+			}
+		}
+	}
 	
 	private void resetShapeSelected() {
 		if(shapeSelected != null) {
