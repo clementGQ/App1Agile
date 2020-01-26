@@ -64,10 +64,15 @@ public class MainApp extends Application {
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
+
+            FXMLLoader loader4 = new FXMLLoader();
+            loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
+            AnchorPane drawArea = (AnchorPane) loader4.load();
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
             paletteLayout.setLeft(verticalPalette);
+            paletteLayout.setCenter(drawArea);
         } catch (IOException e) {
             e.printStackTrace();
         }
