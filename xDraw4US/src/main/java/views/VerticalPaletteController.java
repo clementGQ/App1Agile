@@ -12,7 +12,9 @@ public class VerticalPaletteController extends AController{
 	@FXML
 	private Button selectionButton;
 	
-	public VerticalPaletteController() {}
+	public VerticalPaletteController() {
+		selectedTools = "selection";
+	}
 	
     @FXML
     /**

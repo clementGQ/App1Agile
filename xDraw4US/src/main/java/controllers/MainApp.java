@@ -17,6 +17,10 @@ import views.RootLayoutController;
 public class MainApp extends Application {
 
     private Stage primaryStage;
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+    
     private BorderPane rootLayout;
     
     private RootLayoutController rlController;
@@ -25,7 +29,11 @@ public class MainApp extends Application {
 	}
     
     private VerticalPaletteController vpController;
-    private DrawAreaController dwController;
+    public VerticalPaletteController getVpController() {
+		return vpController;
+	}
+
+	private DrawAreaController dwController;
 
     private HorizontalPaletteController hpController;
     public HorizontalPaletteController getHpController() {
@@ -120,17 +128,7 @@ public class MainApp extends Application {
         }
     }
     
-    /**
-     * Returns the main stage.
-     * @return the primary stage
-     */
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-    
-    public HorizontalPaletteController gethpController() {
-    	return this.hpController;
-    }
+   
     
 
     public static void main(String[] args) {
