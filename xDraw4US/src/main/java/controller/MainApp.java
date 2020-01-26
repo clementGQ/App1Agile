@@ -14,8 +14,8 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private DrawAreaController drawAreaController;
-    private DrawingSheetController drawingSheetController;
+    //private DrawAreaController drawAreaController;
+    //private DrawingSheetController drawingSheetController;
     
     
 
@@ -27,6 +27,7 @@ public class MainApp extends Application {
         initRootLayout();
 
         showPalettes();
+        
         /*
         drawAreaController = new DrawAreaController();
         drawingSheetController = new DrawingSheetController(drawAreaController.getDrawingSheetList().get(0));

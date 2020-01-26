@@ -1,7 +1,22 @@
 package model;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
+
+import controller.MainApp;
+import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -14,8 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class DrawingSheet extends Pane {
-	
-	
+
 	double orgSceneX, orgSceneY;
 	
 	private double x,y; 			// Shape attributs
@@ -31,13 +45,13 @@ public class DrawingSheet extends Pane {
 	
 	private String utilSelected = "";
 	private Paint colorSelected = Color.RED;
-	
-	private final double offSetX = -100;
-	private final double offSetY = -100;
-	
+
 	public DrawingSheet() {
 		super();
 		this.setStyle("-fx-background-color: black;");
+		this.setPrefSize(1000,1000);
+		AnchorPane.setTopAnchor(this,20d);
+		AnchorPane.setLeftAnchor(this,20d);
 		
 		nbChildrenMax = 2;
 
@@ -192,8 +206,8 @@ public class DrawingSheet extends Pane {
 			    }
 			}
 		});*/
-		
 	}
+	
 	
 	
 }
