@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import views.DrawAreaController;
 import views.HorizontalBarController;
 import views.VerticalPaletteController;
+import views.RootLayoutController;
 
 
 public class MainApp extends Application {
@@ -18,7 +19,13 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    private HorizontalBarController hbController;
+    private RootLayoutController rlController;
+    public RootLayoutController getRlController() {
+		return rlController;
+	}
+
+
+	private HorizontalBarController hbController;
     public HorizontalBarController getHbController() {
 		return hbController;
 	}
@@ -41,8 +48,9 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("xDraw4US");
 
         initRootLayout();
-
         showPalettes();
+        
+        
     }
     
     /**
@@ -53,7 +61,9 @@ public class MainApp extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("../views/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            this.rootLayout = (BorderPane) loader.load();
+            this.rlController = loader.getController();
+            rlController.setMainApp(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -69,7 +79,6 @@ public class MainApp extends Application {
      */
     public void showPalettes() {
         try {
-            // Load person overview.
             FXMLLoader loader1 = new FXMLLoader();
             loader1.setLocation(MainApp.class.getResource("../views/PaletteLayout.fxml"));
             BorderPane paletteLayout = (BorderPane) loader1.load();
@@ -89,6 +98,7 @@ public class MainApp extends Application {
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
             AnchorPane drawArea = (AnchorPane) loader4.load();
+            rlController.setDwController(loader4.getController());
             daController = loader4.getController();
             daController.setMainApp(this);
             
@@ -113,4 +123,6 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

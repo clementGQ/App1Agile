@@ -3,33 +3,51 @@ package views;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import model.DrawingSheet;
 
 public class DrawAreaController extends AController{
 	
+	private int sheetNumber;
 	private ArrayList<DrawingSheet> drawingSheetList = new ArrayList<DrawingSheet>();
 	
 	@FXML
 	private TabPane table;
 	
 	public DrawAreaController() {
-		drawingSheetList.add(new DrawingSheet());
+		this.sheetNumber = 1;
 	}
 	
 	@FXML
     private void initialize() {
 		AnchorPane anchorPane = new AnchorPane();
 		ScrollPane scrollPane = new ScrollPane();
-		table.getTabs().get(0).setText("feuille 1");
-		table.getTabs().get(0).setContent(scrollPane);
 		scrollPane.setContent(anchorPane);
+		table.getTabs().get(0).setText("feuille " + Integer.toString(this.sheetNumber));
+		table.getTabs().get(0).setContent(scrollPane);
+		drawingSheetList.add(new DrawingSheet());
 		anchorPane.getChildren().add(drawingSheetList.get(0));
-
+		sheetNumber++;
     }
 	
+	public void newDrawingSheet() {
+		AnchorPane anchorPane = new AnchorPane();
+		ScrollPane scrollPane = new ScrollPane();
+		DrawingSheet sheet = new DrawingSheet();
+		scrollPane.setContent(anchorPane);
+		Tab tab = new Tab("feuille " + Integer.toString(this.sheetNumber), scrollPane);
+		table.getTabs().add(tab);
+		drawingSheetList.add(sheet);
+		anchorPane.getChildren().add(sheet);
+		sheetNumber++;
+		table.getSelectionModel().select(tab);
+	}
 	
+	public void closeDrawingSheet() {
+		table.getTabs().remove( table.getSelectionModel().getSelectedItem());
+	}
 	
 	public ArrayList<DrawingSheet> getDrawingSheetList() {
 		return drawingSheetList;
