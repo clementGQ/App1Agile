@@ -1,21 +1,9 @@
 package model;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
-import controller.MainApp;
-import javafx.geometry.Pos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,8 +13,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class DrawingSheet extends Pane {
 
@@ -41,7 +27,7 @@ public class DrawingSheet extends Pane {
 	
 	private boolean isShapeCreated = false;
 	
-	private Shape shapeSelected = null;
+	//private Shape shapeSelected = null;
 	
 	private String utilSelected = "";
 	private Paint colorSelected = Color.RED;
@@ -130,7 +116,7 @@ public class DrawingSheet extends Pane {
 				
 				shape1.setOnMouseClicked((ts) -> {
 					System.out.println("form selected");
-					shapeSelected = shape1;
+					//shapeSelected = shape1;
 				});
 				
 				

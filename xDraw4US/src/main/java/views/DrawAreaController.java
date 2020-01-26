@@ -1,22 +1,12 @@
-package view;
+package views;
 
 import java.util.ArrayList;
 
-import controller.MainApp;
-import javafx.application.Application;
+import controllers.MainApp;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import model.DrawingSheet;
 
 public class DrawAreaController {
