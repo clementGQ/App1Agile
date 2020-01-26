@@ -31,7 +31,6 @@ public class DrawAreaController extends AController{
 		table.getTabs().get(0).setContent(scrollPane);
 		scrollPane.setContent(anchorPane);
 		anchorPane.getChildren().add(drawingSheetList.get(0));
-
     }
 
 	
@@ -52,6 +51,10 @@ public class DrawAreaController extends AController{
 	
 	public void setVpController(VerticalPaletteController vpController) {
 		drawingSheetList.get(0).setVpController(vpController);
+	}
+	
+	public void keyPressedEvent(String key) {
+		drawingSheetList.get(0).keyPressedEvent(key);
 	}
 }
 

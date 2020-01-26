@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -30,6 +31,8 @@ public class MainApp extends Application {
         initRootLayout();
 
         showPalettes();
+        
+        initKeyEvent();
     }
     
     /**
@@ -82,8 +85,6 @@ public class MainApp extends Application {
             this.dwController.setHpController(this.hpController);
             this.dwController.setVpController(this.vpController);
             
-            
-            
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
             paletteLayout.setLeft(verticalPalette);
@@ -91,6 +92,32 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void initKeyEvent() {
+    	rootLayout.setOnKeyPressed(e -> {
+    		if (e.getCode() == KeyCode.Z) {
+    			this.dwController.keyPressedEvent("Z");
+    		}
+    		if (e.getCode() == KeyCode.Q) {
+    			this.dwController.keyPressedEvent("Q");
+    		}
+    		if (e.getCode() == KeyCode.S) {
+    			this.dwController.keyPressedEvent("S");
+    		}
+    		if (e.getCode() == KeyCode.D) {
+    			this.dwController.keyPressedEvent("D");
+    		}
+    		if (e.getCode() == KeyCode.A) {
+    			this.dwController.keyPressedEvent("A");
+    		}
+    		if (e.getCode() == KeyCode.E) {
+    			this.dwController.keyPressedEvent("E");
+    		}
+    		if (e.getCode() == KeyCode.R) {
+    			this.dwController.keyPressedEvent("R");
+    		}
+    	});
     }
     
     /**
