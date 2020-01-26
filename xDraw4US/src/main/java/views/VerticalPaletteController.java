@@ -11,10 +11,6 @@ public class VerticalPaletteController extends AController{
 	
 	@FXML
 	private Button selectionButton;
-	private Button rectangleButton;
-	private Button circleButton;
-	private Button lineButton;
-	
 	
 	public VerticalPaletteController() {}
 	

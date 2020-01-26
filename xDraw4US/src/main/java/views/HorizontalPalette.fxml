@@ -36,6 +36,7 @@
                   <Color blue="0.0" green="0.0" red="0.0" />
                </value>
             </ColorPicker>
+            <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
         <!-- <MenuButton id="patternFillingMenuButton" fx:id="fillingPatternMenuButton" mnemonicParsing="false" onAction="#patternFillingSelection" prefWidth="150.0" text="Pattern filling">
           <items>
             <MenuItem fx:id="fillingPattern1" mnemonicParsing="false" onAction="#fillingPattern1Selection" text="Coockie" />

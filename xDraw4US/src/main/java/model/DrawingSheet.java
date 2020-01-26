@@ -23,6 +23,7 @@ public class DrawingSheet extends Pane {
 	private VerticalPaletteController vpController;
 	
 	private ChoiceBox<String> fillingPatternSelection;
+	private ChoiceBox<String> strokeSizeSelection;
 	//private ColorPicker colorPicker;
 	private ColorPicker colorStrokePicker;
 
@@ -68,7 +69,7 @@ public class DrawingSheet extends Pane {
 							);
 					Circle circ = new Circle(x, y, radius);
 				    circ.setStroke(colorStrokePicker.getValue());
-				    circ.setStrokeWidth(3);
+				    circ.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
 				    	
 				    String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
 					Image image = new Image(imagePath); 
@@ -88,7 +89,7 @@ public class DrawingSheet extends Pane {
 						rect.setY(y-height);
 					}
 					rect.setStroke(colorStrokePicker.getValue());
-					rect.setStrokeWidth(3);
+					rect.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
 					
 					String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
 					Image image = new Image(imagePath); 
@@ -99,7 +100,7 @@ public class DrawingSheet extends Pane {
 				}
 				if(this.vpController.getSelectedTools() == "line") {			//Line    TODO
 					Line l = new Line(x, y, t.getX(), t.getY());
-					l.setStrokeWidth(3);
+					l.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
 					l.setStroke(colorStrokePicker.getValue());
 					shapeCreated = l;
 				}
@@ -180,6 +181,16 @@ public class DrawingSheet extends Pane {
 			}
 		});
 	}
+	
+	public void setStrokeSizeListener() {
+		this.strokeSizeSelection = this.hpController.getStrokeSize();
+		strokeSizeSelection.setOnAction((t) -> {
+			if(shapeSelected != null) {
+			    shapeSelected.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
+			}
+		});
+	}
+	
 	
 	private void resetShapeSelected() {
 		if(shapeSelected != null) {
