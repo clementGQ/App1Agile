@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import views.HorizontalBarController;
+import views.VerticalPaletteController;
 
 
 public class MainApp extends Application {
@@ -64,6 +65,8 @@ public class MainApp extends Application {
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
+            VerticalPaletteController vbController = loader3.getController();
+            vbController.setMainApp(this);
 
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
