@@ -48,23 +48,17 @@ public class DrawingSheet extends Pane {
 
 	public DrawingSheet() {
 		super();
-		this.setStyle("-fx-background-color: black;");
+		this.setStyle("-fx-background-color: white;");
 		this.setPrefSize(1000,1000);
-		AnchorPane.setTopAnchor(this,20d);
-		AnchorPane.setLeftAnchor(this,20d);
+		AnchorPane.setTopAnchor(this,30d);
+		AnchorPane.setLeftAnchor(this,30d);
+		AnchorPane.setRightAnchor(this,30d);
+		AnchorPane.setBottomAnchor(this,30d);
 		
 		nbChildrenMax = 2;
 
 		utilSelected = "circle"; 						// UTIL SELECTED (circle / rectangle / line / ... )
-		Text utilText = new Text();
-		utilText.setX(20);
-		utilText.setY(20);
-		utilText.setFill(colorSelected);
-		utilText.setFont(new Font(20));
-		utilText.setText(utilSelected);
-		this.getChildren().add(utilText);
-		
-		
+	
 
 		this.setOnMousePressed((t) -> {
 			x = t.getX();
