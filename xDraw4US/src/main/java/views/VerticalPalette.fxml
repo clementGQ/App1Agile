@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="600.0" prefWidth="100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="600.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.VerticalPaletteController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="VERTICAL" prefHeight="600.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <Button mnemonicParsing="false" text="Rectangle" />
-        <Button mnemonicParsing="false" text="Cercle" />
-        <Button mnemonicParsing="false" text="Carre" />
-        <Button mnemonicParsing="false" text="Trait" />
-        <Button mnemonicParsing="false" text="Button" />
-        <Button mnemonicParsing="false" text="Button" />
+        <Button id="selectButton" fx:id="selectButton" mnemonicParsing="false" onAction="#selection" prefHeight="27.0" prefWidth="69.0" text="Selection" />
+        <Button id="lineButton" fx:id="lineButton" mnemonicParsing="false" onAction="#selectLine" prefHeight="26.0" prefWidth="63.0">
+               <graphic>
+                  <Line endX="-52.70710754394531" endY="0.2928932309150696" startX="-100.0" strokeWidth="2.0" />
+               </graphic></Button>
+        <Button id="rectangleButton" fx:id="rectangleButton" mnemonicParsing="false" onAction="#selectRectangle" prefHeight="32.0" prefWidth="69.0">
+               <graphic>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
+               </graphic></Button>
+        <Button id="circleButton" fx:id="circleButton" mnemonicParsing="false" onAction="#selectCircle" prefHeight="34.0" prefWidth="69.0">
+               <graphic>
+                  <Circle fill="WHITE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+               </graphic></Button>
       </items>
     </ToolBar>
   </children>
