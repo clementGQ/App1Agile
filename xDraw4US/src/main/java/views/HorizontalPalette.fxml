@@ -5,12 +5,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.HorizontalBarController">
+<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="views.HorizontalBarController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="HORIZONTAL" prefHeight="50.0" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
         <ColorPicker fx:id="colorPicker" onAction="#onColorSelected" />
+        <MenuButton id="patternFillingMenuButton" fx:id="fillingPatternMenuButton" mnemonicParsing="false" onAction="#patternFillingSelection" prefWidth="150.0" text="Pattern filling">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#fillingPattern1Selection" text="Coockie" fx:id="fillingPattern1" />
+            <MenuItem mnemonicParsing="false" onAction="#fillingPattern2Selection" text="option2" fx:id="fillingPattern2" />
+            <MenuItem mnemonicParsing="false" onAction="#fillingPattern3Selection" text="option3" fx:id="fillingPattern3" />
+          </items>
+        </MenuButton>
         <Button fx:id="minOrMaxButton" mnemonicParsing="false" onAction="#minOrMaximize" text="Maximize" />
       </items>
     </ToolBar>
