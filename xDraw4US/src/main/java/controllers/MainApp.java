@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import views.DrawAreaController;
-import views.HorizontalBarController;
+import views.HorizontalPaletteController;
 import views.VerticalPaletteController;
 
 
@@ -18,7 +18,8 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    private HorizontalBarController hbController;
+    private HorizontalPaletteController hpController;
+    private VerticalPaletteController vpController;
     private DrawAreaController dwController;
 
     @Override
@@ -63,21 +64,23 @@ public class MainApp extends Application {
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(MainApp.class.getResource("../views/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
-            this.hbController = loader2.getController();
-            hbController.setMainApp(this);
+            this.hpController = loader2.getController();
+            hpController.setMainApp(this);
             
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
-            VerticalPaletteController vbController = loader3.getController();
-            vbController.setMainApp(this);
+            this.vpController = loader3.getController();
+            vpController.setMainApp(this);
+            
 
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
             AnchorPane drawArea = (AnchorPane) loader4.load();
             this.dwController = loader4.getController();
             this.dwController.setMainApp(this);
-            this.dwController.setHbController(hbController);
+            this.dwController.setHpController(this.hpController);
+            this.dwController.setVpController(this.vpController);
             
             
             
@@ -98,8 +101,8 @@ public class MainApp extends Application {
         return primaryStage;
     }
     
-    public HorizontalBarController getHbController() {
-    	return this.hbController;
+    public HorizontalPaletteController gethpController() {
+    	return this.hpController;
     }
     
 

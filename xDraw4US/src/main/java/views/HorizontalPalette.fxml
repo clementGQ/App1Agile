@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.HorizontalBarController">
+<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.HorizontalPaletteController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="HORIZONTAL" prefHeight="50.0" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <ColorPicker fx:id="colorPicker" onAction="#onColorSelected" />
+            <Label text="Forme : ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+        <!-- 
+        <ColorPicker fx:id="colorPicker">
+        	<value>
+       			<Color blue="0.0" green="0.0" red="1.0" />
+    		</value>
+        </ColorPicker>
+         -->
+            <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
+            <Label text="Contour :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ColorPicker fx:id="colorStrokePicker">
+               <value>
+                  <Color blue="0.0" green="0.0" red="0.0" />
+               </value>
+            </ColorPicker>
+        <!-- <MenuButton id="patternFillingMenuButton" fx:id="fillingPatternMenuButton" mnemonicParsing="false" onAction="#patternFillingSelection" prefWidth="150.0" text="Pattern filling">
+          <items>
+            <MenuItem fx:id="fillingPattern1" mnemonicParsing="false" onAction="#fillingPattern1Selection" text="Coockie" />
+            <MenuItem fx:id="fillingPattern2" mnemonicParsing="false" onAction="#fillingPattern2Selection" text="option2" />
+            <MenuItem fx:id="fillingPattern3" mnemonicParsing="false" onAction="#fillingPattern3Selection" text="option3" />
+          </items>
+        </MenuButton> -->
         <Button fx:id="minOrMaxButton" mnemonicParsing="false" onAction="#minOrMaximize" text="Maximize" />
       </items>
     </ToolBar>

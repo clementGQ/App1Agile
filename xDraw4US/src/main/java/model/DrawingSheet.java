@@ -3,21 +3,28 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import views.HorizontalBarController;
+import views.HorizontalPaletteController;
+import views.VerticalPaletteController;
 
 public class DrawingSheet extends Pane {
 
-	private HorizontalBarController hbController;
+	private HorizontalPaletteController hpController;
+	private VerticalPaletteController vpController;
+	
+	private ChoiceBox<String> fillingPatternSelection;
+	//private ColorPicker colorPicker;
+	private ColorPicker colorStrokePicker;
 
 	double orgSceneX, orgSceneY;
 	
@@ -30,13 +37,11 @@ public class DrawingSheet extends Pane {
 	
 	private boolean isShapeCreated = false;
 	
-	//private Shape shapeSelected = null;
-	
-	private String utilSelected = "";
-	private Paint colorSelected = Color.RED;
+	private Shape shapeSelected = null;
 
 	public DrawingSheet() {
 		super();
+		
 		this.setStyle("-fx-background-color: white;");
 		this.setPrefSize(1000,1000);
 		AnchorPane.setTopAnchor(this,30d);
@@ -46,9 +51,6 @@ public class DrawingSheet extends Pane {
 		
 		nbChildrenMax = 1;
 
-		utilSelected = "circle"; 						// UTIL SELECTED (circle / rectangle / line / ... )
-	
-
 		this.setOnMousePressed((t) -> {
 			x = t.getX();
 			y = t.getY();
@@ -56,49 +58,49 @@ public class DrawingSheet extends Pane {
 		});
 		
 		this.setOnMouseDragged((t) -> {
-			if(utilSelected != "") {
+			if(this.vpController.getSelectedTools() != "selection") {
+				resetShapeSelected();													//TODO reset la shape plus dès un changement d'outil (Optionnel)
 				Shape shapeCreated = null;
-				if(utilSelected == "circle") {				//Circle
+				if(this.vpController.getSelectedTools() == "circle") {				//Circle
 					radius = Math.sqrt(
 							Math.pow(x-t.getX(), 2) +
 							Math.pow(y-t.getY(), 2)
 							);
-					Circle circ = new Circle(x, y, radius, this.hbController.getColorPicked());
-					/*
-					Image image = new Image("images/cookie.png"); 
-				    ImagePattern radialGradient = new ImagePattern(image, 20, 20, 40, 40, false);
-				    circ.setFill(radialGradient);*/
-				    circ.setStroke(Color.BLACK);
+					Circle circ = new Circle(x, y, radius);
+				    circ.setStroke(colorStrokePicker.getValue());
 				    circ.setStrokeWidth(3);
-					
-					
+				    	
+				    String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
+					Image image = new Image(imagePath); 
+					ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+					circ.setFill(radialGradient);
+
 					shapeCreated = circ;
 				}
-				if(utilSelected == "rectangle") {			//Rectangle
-					width = Math.abs(x-t.getSceneX());
-					height = Math.abs(y-t.getSceneY());
+				if(this.vpController.getSelectedTools() == "rectangle") {			//Rectangle
+					width = Math.abs(x-t.getX());
+					height = Math.abs(y-t.getY());
 					Rectangle rect = new Rectangle(x, y, width, height);
-					if(x > t.getSceneX()) {
+					if(x > t.getX()) {
 						rect.setX(x-width);
 					}
-					if(y > t.getSceneY()) {
+					if(y > t.getY()) {
 						rect.setY(y-height);
 					}
-					//rect.setFill(colorSelected);
-					
-					// FILL WITH PATTERN
-					Image image = new Image("images/beer-pattern.jpg"); 
-				    ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
-					rect.setFill(radialGradient);
-					rect.setStroke(Color.BLACK);
+					rect.setStroke(colorStrokePicker.getValue());
 					rect.setStrokeWidth(3);
+					
+					String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
+					Image image = new Image(imagePath); 
+					ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+					rect.setFill(radialGradient);
 					
 					shapeCreated = rect;
 				}
-				if(utilSelected == "line") {			//Line    TODO
-					Line l = new Line(x, y, t.getSceneX(), t.getSceneY());
+				if(this.vpController.getSelectedTools() == "line") {			//Line    TODO
+					Line l = new Line(x, y, t.getX(), t.getY());
 					l.setStrokeWidth(3);
-					l.setStroke(colorSelected);
+					l.setStroke(colorStrokePicker.getValue());
 					shapeCreated = l;
 				}
 				
@@ -117,9 +119,11 @@ public class DrawingSheet extends Pane {
 			if(isShapeCreated) {
 				Shape shape1 = (Shape)this.getChildren().get(nbChildrenMax-1);
 				
-				shape1.setOnMouseClicked((ts) -> {
-					System.out.println("form selected");
-					//shapeSelected = shape1;
+				shape1.setOnMouseClicked((ts) -> {									//Selection d'une forme
+					resetShapeSelected();
+					this.shapeSelected = shape1;
+					shapeSelected.setOpacity(0.5);
+					colorStrokePicker.setValue((Color)shapeSelected.getStroke());
 				});
 				
 				
@@ -129,54 +133,13 @@ public class DrawingSheet extends Pane {
 				nbChildrenMax++;
 			}
 		});
+		
 		/*
 		this.setOnKeyPressed(e -> {
-			if (e.getCode() == KeyCode.NUMPAD1) { 				// Util Selected
-				System.out.println("touche 1");
-		    	utilSelected = "circle";
-		    	utilText.setText(utilSelected);
-		    }
-			if (e.getCode() == KeyCode.NUMPAD2) {
-		    	utilSelected = "rectangle";
-		    	utilText.setText(utilSelected);
-		    }
-			if (e.getCode() == KeyCode.NUMPAD3) {
-		    	utilSelected = "line";
-		    	utilText.setText(utilSelected);
-		    }
-			
-			if (e.getCode() == KeyCode.R) { 				// Color Selected
-		    	colorSelected = Color.RED;
-		    	utilText.setFill(colorSelected);
-		    }
-			if (e.getCode() == KeyCode.G) {
-				colorSelected = Color.GREEN;
-				utilText.setFill(colorSelected);
-		    }
-			if (e.getCode() == KeyCode.B) {
-				colorSelected = Color.BLUE;
-				utilText.setFill(colorSelected);
-			}
-			if (e.getCode() == KeyCode.D) {
-				this.getChildren().clear();
-				shapesList.clear();
-				nbChildrenMax = 1; // Text effacé mais on s'en fou
-			}
-			
 			if(shapeSelected != null ) {					//Shape Selected
-			    if (e.getCode() == KeyCode.R) {
-			    	shapeSelected.setFill(Color.RED);
-			    }
-			    if (e.getCode() == KeyCode.G) {
-					shapeSelected.setFill(Color.GREEN);
-			    }
-			    if (e.getCode() == KeyCode.B) {
-			    	shapeSelected.setFill(Color.BLUE);
-			    }
 			    if (e.getCode() == KeyCode.RIGHT) {
-			    	
-			    	shapeSelected.setRotate(shapeSelected.getRotate()+2);
-			    	//shapeSelected.setTranslateX(shapeSelected.getTranslateX()+2);
+			    	//shapeSelected.setRotate(shapeSelected.getRotate()+2);   //Rotation
+			    	shapeSelected.setTranslateX(shapeSelected.getTranslateX()+2);
 			    }
 			    if (e.getCode() == KeyCode.LEFT) {
 			    	shapeSelected.setTranslateX(shapeSelected.getTranslateX()-2);
@@ -191,8 +154,46 @@ public class DrawingSheet extends Pane {
 		});*/
 	}
 	
-	public void setHbController(HorizontalBarController hbController) {
-		this.hbController = hbController;
+	public void setColorPickerListener() {
+		//this.colorPicker = this.hpController.getColorPicker();
+		/*colorPicker.setOnAction((t) -> {
+			if(shapeSelected != null) {
+				shapeSelected.setFill(colorPicker.getValue());
+			}
+		});*/
+		this.colorStrokePicker = this.hpController.getColorStrokePicker();
+		colorStrokePicker.setOnAction((t) -> {
+			if(shapeSelected != null) {
+				shapeSelected.setStroke(colorStrokePicker.getValue());
+			}
+		});
+	}
+	
+	public void setFillingPatternListener() {
+		this.fillingPatternSelection = this.hpController.getFillingPattern();
+		fillingPatternSelection.setOnAction((t) -> {
+			if(shapeSelected != null && fillingPatternSelection.getValue() != "None") {
+				String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
+				Image image = new Image(imagePath); 
+			    ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+			    shapeSelected.setFill(radialGradient);
+			}
+		});
+	}
+	
+	private void resetShapeSelected() {
+		if(shapeSelected != null) {
+			shapeSelected.setOpacity(1);
+			shapeSelected = null;
+		}
+	}
+	
+	public void setHpController(HorizontalPaletteController hpController) {
+		this.hpController = hpController;
+	}
+	
+	public void setVpController(VerticalPaletteController vpController) {
+		this.vpController = vpController;
 	}
 
 }

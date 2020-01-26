@@ -2,7 +2,6 @@ package views;
 
 import java.util.ArrayList;
 
-import controllers.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
@@ -44,8 +43,14 @@ public class DrawAreaController extends AController{
 		this.drawingSheetList = drawingSheetList;
 	}
 	
-	public void setHbController(HorizontalBarController hbController) {
-		drawingSheetList.get(0).setHbController(hbController);
+	public void setHpController(HorizontalPaletteController hpController) {
+		drawingSheetList.get(0).setHpController(hpController);
+		drawingSheetList.get(0).setColorPickerListener();
+		drawingSheetList.get(0).setFillingPatternListener();
+	}
+	
+	public void setVpController(VerticalPaletteController vpController) {
+		drawingSheetList.get(0).setVpController(vpController);
 	}
 }
 
