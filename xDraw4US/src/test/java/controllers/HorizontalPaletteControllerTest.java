@@ -11,6 +11,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -67,5 +68,17 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     	assertEquals("line", ma.getHpController().getFillingPattern().getValue(), "Selected pattern must be 'line' now.");
     }   
     
-
+    @Test public void selectStrokeColorTest() {
+        // given: app started with black stroke color
+    	assertEquals(Color.BLACK, ma.getHpController().getColorStrokePicker().getValue(), "Selected stroke color must be black at start.");
+    	
+    	// do: select the above menu option
+    	clickOn("#colorStrokePicker");
+    	type(KeyCode.UP);
+    	type(KeyCode.ENTER);
+    	
+    	//expect: lime stroke color should be now selected
+    	assertEquals(Color.LIME, ma.getHpController().getColorStrokePicker().getValue(), "Selected stroke color must be lime at start.");
+    }   
+    
 }
