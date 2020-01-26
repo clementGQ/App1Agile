@@ -157,7 +157,7 @@ public class DrawingSheet extends Pane {
 			if (e.getCode() == KeyCode.D) {
 				this.getChildren().clear();
 				shapesList.clear();
-				nbChildrenMax = 1; // Text effacé mais on s'en fou
+				nbChildrenMax = 1; // Text effacï¿½ mais on s'en fou
 			}
 			
 			if(shapeSelected != null ) {					//Shape Selected
@@ -186,6 +186,14 @@ public class DrawingSheet extends Pane {
 			    }
 			}
 		});*/
+	}
+	
+	/**
+	 * Get the list of drawn shapes.
+	 * @return the list.
+	 */
+	public ArrayList<Shape> getShapesList() {
+		return shapesList;
 	}
 	
 	

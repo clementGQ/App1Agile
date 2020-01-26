@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import views.DrawAreaController;
 import views.HorizontalBarController;
 import views.VerticalPaletteController;
 
@@ -16,8 +17,25 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    private HorizontalBarController hbController;
+    public HorizontalBarController getHbController() {
+		return hbController;
+	}
 
-    @Override
+
+	private VerticalPaletteController vbController;
+    public VerticalPaletteController getVbController() {
+		return vbController;
+	}
+
+
+	private DrawAreaController daController;
+    public DrawAreaController getDaController() {
+		return daController;
+	}
+
+	@Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("xDraw4US");
@@ -59,18 +77,20 @@ public class MainApp extends Application {
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(MainApp.class.getResource("../views/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
-            HorizontalBarController hbController = loader2.getController();
+            hbController = loader2.getController();
             hbController.setMainApp(this);
             
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
-            VerticalPaletteController vbController = loader3.getController();
+            vbController = loader3.getController();
             vbController.setMainApp(this);
 
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
             AnchorPane drawArea = (AnchorPane) loader4.load();
+            daController = loader4.getController();
+            daController.setMainApp(this);
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
