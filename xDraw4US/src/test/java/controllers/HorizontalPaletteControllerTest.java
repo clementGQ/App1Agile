@@ -53,5 +53,19 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     	//expect: "2 px" should be now selected
     	assertEquals("2 px", ma.getHpController().getStrokeSize().getValue(), "Selected stroke size must be '2 px' now.");    
     }
+    
+    @Test public void selectPatternTest() {
+        // given: app started with pattern "cube"
+    	assertEquals("cube", ma.getHpController().getFillingPattern().getValue(), "Selected pattern must be 'cube' at start.");
+    	
+    	// do: select the below menu option
+    	clickOn("#fillingPatternSelection");
+    	type(KeyCode.DOWN);
+    	type(KeyCode.ENTER);
+    	
+    	//expect: "line" should be now selected
+    	assertEquals("line", ma.getHpController().getFillingPattern().getValue(), "Selected pattern must be 'line' now.");
+    }   
+    
 
 }

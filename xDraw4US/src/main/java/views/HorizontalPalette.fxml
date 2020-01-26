@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.HorizontalPaletteController">
+<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="views.HorizontalPaletteController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="HORIZONTAL" prefHeight="50.0" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-            <Label text="Forme : ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+        <Label text="Remplissage :">
+          <font>
+            <Font size="14.0" fx:id="x1" />
+          </font>
+        </Label>
         <!-- 
         <ColorPicker fx:id="colorPicker">
         	<value>
@@ -25,18 +25,14 @@
     		</value>
         </ColorPicker>
          -->
-            <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
-            <Label text="Contour :">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <ColorPicker fx:id="colorStrokePicker">
-               <value>
-                  <Color blue="0.0" green="0.0" red="0.0" />
-               </value>
-            </ColorPicker>
-            <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
+        <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
+        <Label font="$x1" text="Contour :" />
+        <ColorPicker fx:id="colorStrokePicker">
+          <value>
+            <Color blue="0.000" green="0.000" red="0.000" />
+          </value>
+        </ColorPicker>
+        <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
         <!-- <MenuButton id="patternFillingMenuButton" fx:id="fillingPatternMenuButton" mnemonicParsing="false" onAction="#patternFillingSelection" prefWidth="150.0" text="Pattern filling">
           <items>
             <MenuItem fx:id="fillingPattern1" mnemonicParsing="false" onAction="#fillingPattern1Selection" text="Coockie" />
