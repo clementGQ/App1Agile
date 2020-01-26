@@ -13,8 +13,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import views.HorizontalBarController;
 
 public class DrawingSheet extends Pane {
+
+	private HorizontalBarController hbController;
 
 	double orgSceneX, orgSceneY;
 	
@@ -41,7 +44,7 @@ public class DrawingSheet extends Pane {
 		AnchorPane.setRightAnchor(this,30d);
 		AnchorPane.setBottomAnchor(this,30d);
 		
-		nbChildrenMax = 2;
+		nbChildrenMax = 1;
 
 		utilSelected = "circle"; 						// UTIL SELECTED (circle / rectangle / line / ... )
 	
@@ -60,11 +63,11 @@ public class DrawingSheet extends Pane {
 							Math.pow(x-t.getX(), 2) +
 							Math.pow(y-t.getY(), 2)
 							);
-					Circle circ = new Circle(x, y, radius);
-					
+					Circle circ = new Circle(x, y, radius, this.hbController.getColorPicked());
+					/*
 					Image image = new Image("images/cookie.png"); 
 				    ImagePattern radialGradient = new ImagePattern(image, 20, 20, 40, 40, false);
-				    circ.setFill(radialGradient);
+				    circ.setFill(radialGradient);*/
 				    circ.setStroke(Color.BLACK);
 				    circ.setStrokeWidth(3);
 					
@@ -188,6 +191,8 @@ public class DrawingSheet extends Pane {
 		});*/
 	}
 	
-	
-	
+	public void setHbController(HorizontalBarController hbController) {
+		this.hbController = hbController;
+	}
+
 }

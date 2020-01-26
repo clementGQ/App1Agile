@@ -14,17 +14,17 @@ public class HorizontalBarController extends AController{
 	@FXML
 	private ColorPicker colorPicker;
 	
-	public HorizontalBarController() {
-		
-	}
+	private Color colorPicked;
+	
+	public HorizontalBarController() {}
 	
 	@FXML
 	private void onColorSelected() {
-		Color c = colorPicker.getValue();
-        System.out.println("New Color's RGB = "+c.getRed()+" "+c.getGreen()+" "+c.getBlue());
+		colorPicked = colorPicker.getValue();
+        System.out.println("New Color's RGB = "+colorPicked.getRed()+" "+colorPicked.getGreen()+" "+colorPicked.getBlue());
 	}
-	
-    @FXML
+
+	@FXML
     /**
      * Minimize to 800x600 or maximize the window.
      */
@@ -39,4 +39,9 @@ public class HorizontalBarController extends AController{
         	minOrMaxButton.setText("800x600");
     	}
     }
+	
+	
+    public Color getColorPicked() {
+		return colorPicked;
+	}
 }

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import views.DrawAreaController;
 import views.HorizontalBarController;
 
 
@@ -15,6 +16,9 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    private HorizontalBarController hbController;
+    private DrawAreaController dwController;
 
     @Override
     public void start(Stage primaryStage) {
@@ -58,7 +62,7 @@ public class MainApp extends Application {
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(MainApp.class.getResource("../views/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
-            HorizontalBarController hbController = loader2.getController();
+            this.hbController = loader2.getController();
             hbController.setMainApp(this);
             
             FXMLLoader loader3 = new FXMLLoader();
@@ -68,6 +72,11 @@ public class MainApp extends Application {
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
             AnchorPane drawArea = (AnchorPane) loader4.load();
+            this.dwController = loader4.getController();
+            this.dwController.setMainApp(this);
+            this.dwController.setHbController(hbController);
+            
+            
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
@@ -84,6 +93,10 @@ public class MainApp extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+    
+    public HorizontalBarController getHbController() {
+    	return this.hbController;
     }
     
 

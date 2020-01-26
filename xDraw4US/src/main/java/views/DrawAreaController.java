@@ -9,16 +9,18 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import model.DrawingSheet;
 
-public class DrawAreaController {
+public class DrawAreaController extends AController{
 	
 	private ArrayList<DrawingSheet> drawingSheetList = new ArrayList<DrawingSheet>();
 
-	private MainApp mainApp;
-	
 	@FXML
 	private TabPane table;
 	
 	public DrawAreaController() {
+		createDrawingSheet();
+	}
+	
+	public void createDrawingSheet() {
 		drawingSheetList.add(new DrawingSheet());
 	}
 	
@@ -32,13 +34,7 @@ public class DrawAreaController {
 		anchorPane.getChildren().add(drawingSheetList.get(0));
 
     }
-	
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-		
-	}
-	
-	
+
 	
 	public ArrayList<DrawingSheet> getDrawingSheetList() {
 		return drawingSheetList;
@@ -46,6 +42,10 @@ public class DrawAreaController {
 
 	public void setDrawingSheetList(ArrayList<DrawingSheet> drawingSheetList) {
 		this.drawingSheetList = drawingSheetList;
+	}
+	
+	public void setHbController(HorizontalBarController hbController) {
+		drawingSheetList.get(0).setHbController(hbController);
 	}
 }
 
