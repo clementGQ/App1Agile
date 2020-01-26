@@ -1,19 +1,15 @@
 package views;
 
 import java.util.ArrayList;
-
-import controllers.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import model.DrawingSheet;
 
-public class DrawAreaController {
+public class DrawAreaController extends AController{
 	
 	private ArrayList<DrawingSheet> drawingSheetList = new ArrayList<DrawingSheet>();
-
-	private MainApp mainApp;
 	
 	@FXML
 	private TabPane table;
@@ -32,11 +28,6 @@ public class DrawAreaController {
 		anchorPane.getChildren().add(drawingSheetList.get(0));
 
     }
-	
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-		
-	}
 	
 	
 	
