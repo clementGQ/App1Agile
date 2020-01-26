@@ -18,6 +18,11 @@ public class DrawAreaController extends AController{
 	
 	public DrawAreaController() {
 		this.sheetNumber = 1;
+		createDrawingSheet();
+	}
+	
+	public void createDrawingSheet() {
+		drawingSheetList.add(new DrawingSheet());
 	}
 	
 	@FXML
@@ -31,6 +36,7 @@ public class DrawAreaController extends AController{
 		anchorPane.getChildren().add(drawingSheetList.get(0));
 		sheetNumber++;
     }
+
 	
 	public void newDrawingSheet() {
 		AnchorPane anchorPane = new AnchorPane();
@@ -55,6 +61,17 @@ public class DrawAreaController extends AController{
 
 	public void setDrawingSheetList(ArrayList<DrawingSheet> drawingSheetList) {
 		this.drawingSheetList = drawingSheetList;
+	}
+	
+	public void setHpController(HorizontalPaletteController hpController) {
+		drawingSheetList.get(0).setHpController(hpController);
+		drawingSheetList.get(0).setColorPickerListener();
+		drawingSheetList.get(0).setFillingPatternListener();
+		drawingSheetList.get(0).setStrokeSizeListener();
+	}
+	
+	public void setVpController(VerticalPaletteController vpController) {
+		drawingSheetList.get(0).setVpController(vpController);
 	}
 }
 
