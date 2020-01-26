@@ -47,6 +47,7 @@ public class DrawAreaController extends AController{
 		drawingSheetList.get(0).setColorPickerListener();
 		drawingSheetList.get(0).setFillingPatternListener();
 		drawingSheetList.get(0).setStrokeSizeListener();
+		drawingSheetList.get(0).setDeleteButtonListener();
 	}
 	
 	public void setVpController(VerticalPaletteController vpController) {

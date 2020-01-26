@@ -14,6 +14,9 @@ public class HorizontalPaletteController extends AController{
 	private Button minOrMaxButton;
 	
 	@FXML
+	private Button deleteButton;
+	
+	@FXML
 	private ColorPicker colorStrokePicker;
 	
 	@FXML
@@ -53,6 +56,10 @@ public class HorizontalPaletteController extends AController{
         	minOrMaxButton.setText("800x600");
     	}
     }
+	
+	public Button getDeleteButton() {
+		return this.deleteButton;
+	}
 
     public ColorPicker getColorStrokePicker() {
 		return this.colorStrokePicker;

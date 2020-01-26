@@ -7,6 +7,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -132,10 +133,18 @@ public class DrawingSheet extends Pane {
 					}
 				});	
 				shapesList.add(shape1);
-				System.out.println("nombre de formes : " + shapesList.size());
-				System.out.println("nombre de children : " + nbChildrenMax);
 				nbChildrenMax++;
 			}
+		});
+	}
+	
+	public void setDeleteButtonListener() {
+		this.hpController.getDeleteButton().setOnAction((t) -> {
+			System.out.println("delete");
+			nbChildrenMax = 1;
+			this.getChildren().clear();
+			shapesList.clear();
+			shapeSelected = null;
 		});
 	}
 	
