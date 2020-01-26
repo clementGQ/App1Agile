@@ -35,7 +35,11 @@ public class DrawingSheet extends Pane {
 	private double width, height; 	//Rectangle attributs
 	
 	private int nbChildrenMax;
+	
 	private ArrayList<Shape> shapesList = new ArrayList<>();
+	public ArrayList<Shape> getShapesList() {
+		return shapesList;
+	}
 	
 	private boolean isShapeCreated = false;
 	
@@ -137,14 +141,7 @@ public class DrawingSheet extends Pane {
 			}
 		});
 	}
-	
-	/**
-	 * Get the list of drawn shapes.
-	 * @return the list.
-	 */
-	public ArrayList<Shape> getShapesList() {
-		return shapesList;
-	}
+
 	public void setDeleteButtonListener() {
 		this.hpController.getDeleteButton().setOnAction((t) -> {
 			System.out.println("delete");
