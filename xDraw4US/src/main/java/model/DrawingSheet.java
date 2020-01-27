@@ -7,8 +7,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -31,6 +29,12 @@ public class DrawingSheet extends Pane {
 	double orgSceneX, orgSceneY;
 	
 	private double x,y; 			// Shape attributs
+	public double getLastShapeX() {
+		return x;
+	}
+	public double getLastShapeY() {
+		return y;
+	}
 	private double radius; 			//Circle attributs
 	private double width, height; 	//Rectangle attributs
 	
@@ -44,7 +48,7 @@ public class DrawingSheet extends Pane {
 	private boolean isShapeCreated = false;
 	
 	private Shape shapeSelected = null;
-
+	
 	public DrawingSheet() {
 		super();
 		
@@ -65,7 +69,7 @@ public class DrawingSheet extends Pane {
 		
 		this.setOnMouseDragged((t) -> {
 			if(this.vpController.getSelectedTools() != "selection") {
-				resetShapeSelected();													//TODO reset la shape plus d�s un changement d'outil (Optionnel)
+				resetShapeSelected();													// reset la shape plus d�s un changement d'outil (Optionnel)
 				Shape shapeCreated = null;
 				if(this.vpController.getSelectedTools() == "circle") {				//Circle
 					radius = Math.sqrt(
