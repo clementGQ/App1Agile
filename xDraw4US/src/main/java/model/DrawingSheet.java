@@ -130,10 +130,12 @@ public class DrawingSheet extends Pane {
 				Shape shape1 = (Shape)this.getChildren().get(nbChildrenMax-1);
 				
 				shape1.setOnMouseClicked((ts) -> {									//Selection d'une forme
-					resetShapeSelected();
-					this.shapeSelected = shape1;
-					shapeSelected.setOpacity(0.5);
-					colorStrokePicker.setValue((Color)shapeSelected.getStroke());
+					if(this.vpController.getSelectedTools() == "selection") {
+						resetShapeSelected();
+						this.shapeSelected = shape1;
+						shapeSelected.setOpacity(0.5);
+						colorStrokePicker.setValue((Color)shapeSelected.getStroke());
+					}
 				});
 				shape1.setOnKeyPressed(e -> {
 					if (e.getCode() == KeyCode.RIGHT) {
