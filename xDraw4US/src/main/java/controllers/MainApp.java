@@ -57,6 +57,9 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("xDraw4US");
+        this.primaryStage.setResizable(false);
+        this.primaryStage.setHeight(600);    	
+        this.primaryStage.setWidth(800);
 
         initRootLayout();
         showPalettes();
@@ -117,6 +120,7 @@ public class MainApp extends Application {
             this.dwController.setMainApp(this);
             this.dwController.setHpController(this.hpController);
             this.dwController.setVpController(this.vpController);
+            this.dwController.setDeleteButtonListener();
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
@@ -149,6 +153,9 @@ public class MainApp extends Application {
     		}
     		if (e.getCode() == KeyCode.R) {
     			this.dwController.keyPressedEvent("R");
+    		}
+    		if (e.getCode() == KeyCode.M) {
+    			this.dwController.keyPressedEvent("M");
     		}
     	});
     }

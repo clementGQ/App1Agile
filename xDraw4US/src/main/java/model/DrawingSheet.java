@@ -3,6 +3,7 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
@@ -37,7 +38,6 @@ public class DrawingSheet extends Pane {
 	}
 	private double radius; 			//Circle attributs
 	private double width, height; 	//Rectangle attributs
-	
 	private int nbChildrenMax;
 	
 	private ArrayList<Shape> shapesList = new ArrayList<>();
@@ -48,18 +48,25 @@ public class DrawingSheet extends Pane {
 	private boolean isShapeCreated = false;
 	
 	private Shape shapeSelected = null;
+	public void setShapeSelected(Shape shapeSelected) {
+		this.shapeSelected = shapeSelected;
+	}
 	
-	public DrawingSheet() {
+	public DrawingSheet(HorizontalPaletteController hpController,VerticalPaletteController vpController) {
 		super();
-		
 		this.setStyle("-fx-background-color: white;");
-		this.setPrefSize(700,400);
-//		AnchorPane.setTopAnchor(this,30d);
-//		AnchorPane.setLeftAnchor(this,30d);
-//		AnchorPane.setRightAnchor(this,30d);
-//		AnchorPane.setBottomAnchor(this,30d);
-		
-		nbChildrenMax = 1;
+		this.setPrefSize(683,455);
+		this.hpController =hpController;
+		this.vpController =vpController;
+		this.setColorPickerListener();
+		this.setFillingPatternListener();
+		this.setStrokeSizeListener();
+		this.nbChildrenMax = 1;
+		this.setMouseEvent();
+	
+	}
+	
+	private void setMouseEvent() {
 
 		this.setOnMousePressed((t) -> {
 			x = t.getX();
@@ -148,15 +155,6 @@ public class DrawingSheet extends Pane {
 		});
 	}
 
-	public void setDeleteButtonListener() {
-		this.hpController.getDeleteButton().setOnAction((t) -> {
-			System.out.println("delete");
-			nbChildrenMax = 1;
-			this.getChildren().clear();
-			shapesList.clear();
-			shapeSelected = null;
-		});
-	}
 	
 	public void setColorPickerListener() {
 		this.colorStrokePicker = this.hpController.getColorStrokePicker();
@@ -189,6 +187,9 @@ public class DrawingSheet extends Pane {
 	}
 	
 	public void keyPressedEvent(String Key) {
+//		if (Key == "M") {
+//			zoom(2);
+//		}
 		if(shapeSelected != null) {
 			switch(Key) {
 			  case "Z":
@@ -232,5 +233,19 @@ public class DrawingSheet extends Pane {
 	public void setVpController(VerticalPaletteController vpController) {
 		this.vpController = vpController;
 	}
+	
+	public void setNbChildrenMax(int nb) {
+		this.nbChildrenMax = nb;
+	}
+	
+//	public void zoom(double mult) {
+//		this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
+//		for(Shape shape: this.shapesList) {
+//			shape.setScaleX(shape.getScaleX()*mult);
+//			shape.setScaleY(shape.getScaleY()*mult);
+//			shape.setX(shape.getTranslateX()*mult);
+//			shape.setY(shape.getTranslateY()*mult);
+//		}
+//	}
 
 }
