@@ -11,6 +11,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -80,5 +81,25 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     	//expect: lime stroke color should be now selected
     	assertEquals(Color.LIME, ma.getHpController().getColorStrokePicker().getValue(), "Selected stroke color must be lime at start.");
     }   
+    
+    
+    @Test public void eraseAllShapes() {
+    	// given: app starts with 5 shapes
+    	clickOn("#rectangleButton");
+    	moveTo(ma.getPrimaryStage());
+    	for(int i = 0; i < 5; i++) {
+    		// -> drag and drop
+        	press(MouseButton.PRIMARY);
+        	moveBy(20+10*i,20+10*i);
+        	release(MouseButton.PRIMARY);
+    	}
+    	
+    	// do: click on erase button
+    	clickOn("#deleteButton");
+    	
+    	assertEquals(0, ma.getDaController().getDrawingSheetList().get(0).getShapesList().size(), "List of shapes must contain zero shape");
+    }
+    
+    
     
 }
