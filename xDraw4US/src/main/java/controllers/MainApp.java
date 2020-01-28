@@ -34,7 +34,7 @@ public class MainApp extends Application {
 		return vpController;
 	}
 
-	private DrawAreaController dwController;
+	private DrawAreaController daController;
 
     private HorizontalPaletteController hpController;
     public HorizontalPaletteController getHpController() {
@@ -47,12 +47,8 @@ public class MainApp extends Application {
 		return vbController;
 	}
 
-
-	private DrawAreaController daController;
-    public DrawAreaController getDaController() {
-		return daController;
-	}
-
+    
+	//start
 	@Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -65,6 +61,11 @@ public class MainApp extends Application {
         showPalettes();
         
         initKeyEvent();
+    }
+	
+	//main
+    public static void main(String[] args) {
+        launch(args);
     }
     
     /**
@@ -89,7 +90,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Shows the palettes and the draw area inside the root layout.
      */
     public void showPalettes() {
         try {
@@ -97,30 +98,32 @@ public class MainApp extends Application {
             loader1.setLocation(MainApp.class.getResource("../views/PaletteLayout.fxml"));
             BorderPane paletteLayout = (BorderPane) loader1.load();
             
+            //horizontal palette
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(MainApp.class.getResource("../views/HorizontalPalette.fxml"));
             AnchorPane horizontalPalette = (AnchorPane) loader2.load();
             this.hpController = loader2.getController();
             hpController.setMainApp(this);
             
+            //vertical palette
             FXMLLoader loader3 = new FXMLLoader();
             loader3.setLocation(MainApp.class.getResource("../views/VerticalPalette.fxml"));
             AnchorPane verticalPalette = (AnchorPane) loader3.load();
             this.vpController = loader3.getController();
             vpController.setMainApp(this);
             
-
+            //draw area
             FXMLLoader loader4 = new FXMLLoader();
             loader4.setLocation(MainApp.class.getResource("../views/DrawArea.fxml"));
             AnchorPane drawArea = (AnchorPane) loader4.load();
             rlController.setDwController(loader4.getController());
             daController = loader4.getController();
             daController.setMainApp(this);
-            this.dwController = loader4.getController();
-            this.dwController.setMainApp(this);
-            this.dwController.setHpController(this.hpController);
-            this.dwController.setVpController(this.vpController);
-            this.dwController.setDeleteButtonListener();
+            this.daController = loader4.getController();
+            this.daController.setMainApp(this);
+            this.daController.setHpController(this.hpController);
+            this.daController.setVpController(this.vpController);
+            
             
             rootLayout.setCenter(paletteLayout);
             paletteLayout.setTop(horizontalPalette);
@@ -131,42 +134,53 @@ public class MainApp extends Application {
         }
     }
     
+    /**
+     * initialize key event
+     */
     private void initKeyEvent() {
     	rootLayout.setOnKeyPressed(e -> {
     		if (e.getCode() == KeyCode.Z) {
-    			this.dwController.keyPressedEvent("Z");
+    			keyPressedEvent("Z");
     		}
     		if (e.getCode() == KeyCode.Q) {
-    			this.dwController.keyPressedEvent("Q");
+    			keyPressedEvent("Q");
     		}
     		if (e.getCode() == KeyCode.S) {
-    			this.dwController.keyPressedEvent("S");
+    			keyPressedEvent("S");
     		}
     		if (e.getCode() == KeyCode.D) {
-    			this.dwController.keyPressedEvent("D");
+    			keyPressedEvent("D");
     		}
     		if (e.getCode() == KeyCode.A) {
-    			this.dwController.keyPressedEvent("A");
+    			keyPressedEvent("A");
     		}
     		if (e.getCode() == KeyCode.E) {
-    			this.dwController.keyPressedEvent("E");
+    			keyPressedEvent("E");
     		}
     		if (e.getCode() == KeyCode.R) {
-    			this.dwController.keyPressedEvent("R");
+    			keyPressedEvent("R");
     		}
     		if (e.getCode() == KeyCode.M) {
-    			this.dwController.keyPressedEvent("M");
+    			keyPressedEvent("M");
     		}
     		if (e.getCode() == KeyCode.L) {
-    			this.dwController.keyPressedEvent("L");
+    			keyPressedEvent("L");
     		}
     	});
     }
     
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+    /**
+     * activate the key action on the current sheet
+     */
+    public void keyPressedEvent(String key) {
+		int activeTableIndex = this.daController.getTable().getSelectionModel().getSelectedIndex();
+		this.daController.getDrawingSheetControllerList().get(activeTableIndex).keyPressedEvent(key);
+	}
+    
+    
+    public DrawAreaController getDaController() {
+		return daController;
+	}
 
 
 }

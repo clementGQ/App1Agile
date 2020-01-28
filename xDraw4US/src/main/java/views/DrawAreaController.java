@@ -1,91 +1,84 @@
 package views;
 
 import java.util.ArrayList;
+
+import controllers.DrawingSheetController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import model.DrawingSheet;
 
 public class DrawAreaController extends AController{
 	
 	private int sheetNumber;
-	private ArrayList<DrawingSheet> drawingSheetList = new ArrayList<DrawingSheet>();
+	private ArrayList<DrawingSheetController> drawingSheetControllerList = new ArrayList<DrawingSheetController>();
 	private HorizontalPaletteController hpController;
 	private VerticalPaletteController vpController;
 	
 	@FXML
 	private TabPane table;
 	
-	public DrawAreaController() {
+
+	@FXML
+    private void initialize() {
 		this.sheetNumber = 1;
 	}
 	
-	@FXML
-    private void initialize() {
-	}
-	
+	/**
+     * create a new sheet
+     */
 	public void newDrawingSheet() {
-		if (drawingSheetList.size() == 0) {
+		if (drawingSheetControllerList.size() == 0) {
 			AnchorPane anchorPane = new AnchorPane();
 			ScrollPane scrollPane = new ScrollPane();
 			scrollPane.setContent(anchorPane);
 			table.getTabs().get(0).setText("feuille " + Integer.toString(this.sheetNumber));
 			table.getTabs().get(0).setContent(scrollPane);
-			drawingSheetList.add(new DrawingSheet(hpController,vpController));
-			anchorPane.getChildren().add(drawingSheetList.get(0));
+			drawingSheetControllerList.add(new DrawingSheetController(hpController,vpController));
+			anchorPane.getChildren().add(drawingSheetControllerList.get(0).getDrawingSheet());
 			sheetNumber++;
 		}
 		else {
 			AnchorPane anchorPane = new AnchorPane();
 			ScrollPane scrollPane = new ScrollPane();
-			DrawingSheet sheet = new DrawingSheet(hpController,vpController);
+			DrawingSheetController sheet = new DrawingSheetController(hpController,vpController);
 			scrollPane.setContent(anchorPane);
 			Tab tab = new Tab("feuille " + Integer.toString(this.sheetNumber), scrollPane);
 			table.getTabs().add(tab);
-			drawingSheetList.add(sheet);
-			anchorPane.getChildren().add(sheet);
+			drawingSheetControllerList.add(sheet);
+			anchorPane.getChildren().add(sheet.getDrawingSheet());
 			sheetNumber++;
 			table.getSelectionModel().select(tab);
 		}
 	}
 	
+	/**
+     * close the current sheet
+     */
 	public void closeDrawingSheet() {
-		if (drawingSheetList.size() == 1) {
+		if (drawingSheetControllerList.size() == 1) {
 			table.getTabs().get(0).setText("");
 			table.getTabs().get(0).setContent(null);
-			drawingSheetList.remove(drawingSheetList.get(0));
+			drawingSheetControllerList.remove(drawingSheetControllerList.get(0));
 		}
 		else {
-			//indice de la table active
-			int i = table.getSelectionModel().getSelectedIndex();
-			table.getTabs().remove(table.getTabs().get(i));
-			drawingSheetList.remove(drawingSheetList.get(i));
+			int activeTableIndex = table.getSelectionModel().getSelectedIndex(); 
+			table.getTabs().remove(table.getTabs().get(activeTableIndex));
+			drawingSheetControllerList.remove(drawingSheetControllerList.get(activeTableIndex));
 		}
 		
 	}
 	
-	public void setDeleteButtonListener() {
-		this.hpController.getDeleteButton().setOnAction((t) -> {
-			int i = table.getSelectionModel().getSelectedIndex();
-			System.out.println("delete");
-			this.drawingSheetList.get(i).setNbChildrenMax(1);
-			this.drawingSheetList.get(i).getChildren().clear();
-			this.drawingSheetList.get(i).getShapesList().clear();
-			this.drawingSheetList.get(i).setShapeSelected( null);
-		});
-	}
 	
-	
-	public ArrayList<DrawingSheet> getDrawingSheetList() {
-		return drawingSheetList;
+	//getters setters	
+	public ArrayList<DrawingSheetController> getDrawingSheetControllerList() {
+		return drawingSheetControllerList;
 	}
 
-	public void setDrawingSheetList(ArrayList<DrawingSheet> drawingSheetList) {
-		this.drawingSheetList = drawingSheetList;
+	public void setDrawingSheetControllerList(ArrayList<DrawingSheetController> drawingSheetControllerList) {
+		this.drawingSheetControllerList = drawingSheetControllerList;
 	}
-
 	
 	public void setHpController(HorizontalPaletteController hpController) {
 		this.hpController=hpController;
@@ -95,8 +88,8 @@ public class DrawAreaController extends AController{
 		this.vpController=vpController;
 	}
 	
-	public void keyPressedEvent(String key) {
-		drawingSheetList.get(0).keyPressedEvent(key);
+	public TabPane getTable() {
+		return table;
 	}
 }
 

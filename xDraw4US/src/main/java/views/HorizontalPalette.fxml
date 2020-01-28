@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="views.HorizontalPaletteController">
+<AnchorPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.HorizontalPaletteController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="HORIZONTAL" prefHeight="50.0" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,20 +25,19 @@
     		</value>
         </ColorPicker>
          -->
-            <ChoiceBox fx:id="fillingPatternSelection" prefWidth="150.0" />
+            <ChoiceBox fx:id="fillingPatternSelection" onDragDetected="#handleFillingPattern" prefWidth="150.0" />
             <Label text="Contour :">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ColorPicker fx:id="colorStrokePicker">
+            <ColorPicker fx:id="colorStrokePicker" onAction="#handleColorStroke">
                <value>
                   <Color blue="0.0" green="0.0" red="0.0" />
                </value>
             </ColorPicker>
             <ChoiceBox fx:id="strokeSizeSelection" prefWidth="50.0" />
         <Pane HBox.hgrow="ALWAYS" />
-        <Button fx:id="deleteButton" mnemonicParsing="false" style="-fx-background-color: #ff5544;" text="Delete All" />
         <Button fx:id="minOrMaxButton" mnemonicParsing="false" onAction="#minOrMaximize" text="Maximize" />
       </items>
     </ToolBar>

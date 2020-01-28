@@ -25,14 +25,14 @@ class RootLayoutControllerTest extends ApplicationTest {
      */
     @Test public void newDrawTest() {
         // given: app started with one drawing
-    	assertEquals(1,ma.getDaController().getDrawingSheetList().size(), "There must be only one drawing at start.");
+    	assertEquals(1,ma.getDaController().getDrawingSheetControllerList().size(), "There must be only one drawing at start.");
     	
     	// do: new draw   	
     	clickOn("#file");
     	clickOn("#newDrawButton");
     	
     	//expect: shape is drawn
-    	assertEquals(2,ma.getDaController().getDrawingSheetList().size(), "There must be two drawings now.");
+    	assertEquals(2,ma.getDaController().getDrawingSheetControllerList().size(), "There must be two drawings now.");
     }
 
 
