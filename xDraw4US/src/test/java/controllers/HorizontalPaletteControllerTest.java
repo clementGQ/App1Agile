@@ -84,10 +84,10 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     
     
     @Test public void eraseAllShapes() {
-    	// given: app starts with 5 shapes
-    	clickOn("#rectangleButton");
+    	// given: app starts with 3 shapes
+    	clickOn("#circleButton");
     	moveTo(ma.getPrimaryStage());
-    	for(int i = 0; i < 5; i++) {
+    	for(int i = 0; i < 3; i++) {
     		// -> drag and drop
         	press(MouseButton.PRIMARY);
         	moveBy(20+10*i,20+10*i);

@@ -74,6 +74,7 @@ public class DrawAreaController extends AController{
 	}
 	
 	public void keyPressedEvent(String key) {
+		
 		drawingSheetList.get(0).keyPressedEvent(key);
 	}
 }

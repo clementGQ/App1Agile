@@ -53,11 +53,7 @@ public class DrawingSheet extends Pane {
 		super();
 		
 		this.setStyle("-fx-background-color: white;");
-		this.setPrefSize(700,400);
-//		AnchorPane.setTopAnchor(this,30d);
-//		AnchorPane.setLeftAnchor(this,30d);
-//		AnchorPane.setRightAnchor(this,30d);
-//		AnchorPane.setBottomAnchor(this,30d);
+		this.setPrefSize(683,455);
 		
 		nbChildrenMax = 1;
 
