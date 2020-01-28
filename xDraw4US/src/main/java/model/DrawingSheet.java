@@ -40,6 +40,9 @@ public class DrawingSheet extends Pane {
 	private double width, height; 	//Rectangle attributs
 	private int nbChildrenMax;
 	
+	private ArrayList<Rectangle> rectanglesList = new ArrayList<>();
+	private ArrayList<Line> lineList = new ArrayList<>();
+	private ArrayList<Circle> circlesList = new ArrayList<>();
 	private ArrayList<Shape> shapesList = new ArrayList<>();
 	public ArrayList<Shape> getShapesList() {
 		return shapesList;
@@ -94,7 +97,7 @@ public class DrawingSheet extends Pane {
 
 					shapeCreated = circ;
 				}
-				if(this.vpController.getSelectedTools() == "rectangle") {			//Rectangle
+				if(this.vpController.getSelectedTools() == "rectangle") {	//Rectangle
 					width = Math.abs(x-t.getX());
 					height = Math.abs(y-t.getY());
 					Rectangle rect = new Rectangle(x, y, width, height);
@@ -150,6 +153,18 @@ public class DrawingSheet extends Pane {
 					}
 				});	
 				shapesList.add(shape1);
+				switch(this.vpController.getSelectedTools()) {
+				case "circle": 
+					circlesList.add((Circle) shape1);
+					break;
+				case "rectangle": 
+					rectanglesList.add((Rectangle) shape1);
+					break;
+				case "line": 
+					lineList.add((Line) shape1);
+					break;
+				
+				}
 				nbChildrenMax++;
 			}
 		});
@@ -187,9 +202,12 @@ public class DrawingSheet extends Pane {
 	}
 	
 	public void keyPressedEvent(String Key) {
-//		if (Key == "M") {
-//			zoom(2);
-//		}
+		if (Key == "M") {
+			zoom(2);
+		}
+		if (Key == "L") {
+			zoom(0.5);
+		}
 		if(shapeSelected != null) {
 			switch(Key) {
 			  case "Z":
@@ -238,14 +256,45 @@ public class DrawingSheet extends Pane {
 		this.nbChildrenMax = nb;
 	}
 	
-//	public void zoom(double mult) {
-//		this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
-//		for(Shape shape: this.shapesList) {
-//			shape.setScaleX(shape.getScaleX()*mult);
-//			shape.setScaleY(shape.getScaleY()*mult);
-//			shape.setX(shape.getTranslateX()*mult);
-//			shape.setY(shape.getTranslateY()*mult);
-//		}
-//	}
+	public void zoom(double mult) {
+		this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
+		
+		for(Rectangle rectangle: this.rectanglesList) {
+			rectangle.setWidth(rectangle.getWidth()*mult);
+			rectangle.setHeight(rectangle.getHeight()*mult);
+			rectangle.setX(rectangle.getX()*mult);
+			rectangle.setY(rectangle.getY()*mult);
+		}
+		for(Circle circle: this.circlesList) {
+			circle.setCenterX(circle.getCenterX()*mult);
+			circle.setCenterY(circle.getCenterY()*mult);
+			circle.setScaleX(circle.getScaleX()*mult);
+			circle.setScaleY(circle.getScaleY()*mult);
+		}
+		for(Line line: this.lineList) {
+			double normX = Math.abs(line.getStartX()-line.getEndX());
+			double normY = Math.abs(line.getStartY()-line.getEndY());
+			
+			if(line.getStartX()>line.getEndX()) {
+				line.setEndX(line.getEndX()*mult);
+				line.setStartX(line.getEndX()+normX*mult);
+			}
+			else {
+				line.setStartX(line.getStartX()*mult);
+				line.setEndX(line.getStartX()+normX*mult);
+			}
+			
+			if(line.getStartY()>line.getEndY()) {
+				line.setEndY(line.getEndY()*mult);
+				line.setStartY(line.getEndY()+normY*mult);
+			}
+			else {
+				line.setStartY(line.getStartY()*mult);
+				line.setEndY(line.getStartY()+normY*mult);
+			}
+			line.setStrokeWidth(line.getStrokeWidth()*mult);
+		}
+
+	}
 
 }

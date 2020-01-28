@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import model.DrawingSheet;
 
 public class HorizontalPaletteController extends AController{
 	
@@ -51,9 +52,15 @@ public class HorizontalPaletteController extends AController{
         	mainApp.getPrimaryStage().setHeight(600);    	
         	mainApp.getPrimaryStage().setWidth(800);
         	minOrMaxButton.setText("Maximize");
+        	for(DrawingSheet d: mainApp.getDaController().getDrawingSheetList()) {
+        		d.zoom(0.3);
+        	}
     	}else {
         	mainApp.getPrimaryStage().setMaximized(true);
         	minOrMaxButton.setText("800x600");
+        	for(DrawingSheet d: mainApp.getDaController().getDrawingSheetList()) {
+        		d.zoom(3);
+        	}
     	}
     }
 	

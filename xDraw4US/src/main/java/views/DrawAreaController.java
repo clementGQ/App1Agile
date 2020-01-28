@@ -77,6 +77,7 @@ public class DrawAreaController extends AController{
 		});
 	}
 	
+	
 	public ArrayList<DrawingSheet> getDrawingSheetList() {
 		return drawingSheetList;
 	}
@@ -84,6 +85,7 @@ public class DrawAreaController extends AController{
 	public void setDrawingSheetList(ArrayList<DrawingSheet> drawingSheetList) {
 		this.drawingSheetList = drawingSheetList;
 	}
+
 	
 	public void setHpController(HorizontalPaletteController hpController) {
 		this.hpController=hpController;

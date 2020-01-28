@@ -157,6 +157,9 @@ public class MainApp extends Application {
     		if (e.getCode() == KeyCode.M) {
     			this.dwController.keyPressedEvent("M");
     		}
+    		if (e.getCode() == KeyCode.L) {
+    			this.dwController.keyPressedEvent("L");
+    		}
     	});
     }
     
