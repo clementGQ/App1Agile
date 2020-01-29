@@ -35,14 +35,14 @@ public class DrawAreaController extends AController{
 			scrollPane.setContent(anchorPane);
 			table.getTabs().get(0).setText("feuille " + Integer.toString(this.sheetNumber));
 			table.getTabs().get(0).setContent(scrollPane);
-			drawingSheetControllerList.add(new DrawingSheetController(hpController,vpController));
+			drawingSheetControllerList.add(new DrawingSheetController(hpController,vpController, mainApp));
 			anchorPane.getChildren().add(drawingSheetControllerList.get(0).getDrawingSheet());
 			sheetNumber++;
 		}
 		else {
 			AnchorPane anchorPane = new AnchorPane();
 			ScrollPane scrollPane = new ScrollPane();
-			DrawingSheetController sheet = new DrawingSheetController(hpController,vpController);
+			DrawingSheetController sheet = new DrawingSheetController(hpController,vpController, mainApp);
 			scrollPane.setContent(anchorPane);
 			Tab tab = new Tab("feuille " + Integer.toString(this.sheetNumber), scrollPane);
 			table.getTabs().add(tab);

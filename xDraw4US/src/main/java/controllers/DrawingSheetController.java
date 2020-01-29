@@ -1,16 +1,25 @@
 package controllers;
 
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.DrawingSheet;
+import views.AController;
+import views.AttributePanelController;
 import views.HorizontalPaletteController;
 import views.VerticalPaletteController;
 
@@ -20,6 +29,7 @@ public class DrawingSheetController {
 	
 	private HorizontalPaletteController hpController;
 	private VerticalPaletteController vpController;
+	private MainApp mainApp;
 	
 	private ChoiceBox<String> fillingPatternSelection;
 	private ChoiceBox<String> strokeSizeSelection;
@@ -29,10 +39,11 @@ public class DrawingSheetController {
 	private boolean isShapeCreated = false;
 	
 	//builder
-	public DrawingSheetController(HorizontalPaletteController hpController,VerticalPaletteController vpController) {
+	public DrawingSheetController(HorizontalPaletteController hpController,VerticalPaletteController vpController, MainApp mainApp) {
 		drawingSheet = new DrawingSheet();
 		this.hpController =hpController;
 		this.vpController =vpController;
+		this.mainApp = mainApp;
 		this.setMouseEvent();
 		this.colorStrokePicker = this.hpController.getColorStrokePicker();
 		this.fillingPatternSelection = this.hpController.getFillingPattern();
@@ -156,6 +167,8 @@ public class DrawingSheetController {
 						drawingSheet.setShapeSelected(shape1) ;
 						drawingSheet.getShapeSelected().setOpacity(0.5);
 						colorStrokePicker.setValue((Color)drawingSheet.getShapeSelected().getStroke());
+						System.out.println("thomas le morfale");
+						mainApp.showShapeEditPanel(shape1);
 					}
 				});
 				shape1.setOnKeyPressed(e -> {
@@ -180,6 +193,8 @@ public class DrawingSheetController {
 			}
 		});
 	}
+ 
+
 	
 	
 	//getters setters

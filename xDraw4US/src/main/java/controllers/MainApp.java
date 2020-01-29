@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Shape;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import views.AttributePanelController;
 import views.DrawAreaController;
 import views.HorizontalPaletteController;
 import views.VerticalPaletteController;
@@ -134,6 +137,39 @@ public class MainApp extends Application {
         }
     }
     
+    public boolean showShapeEditPanel(Shape shape) {
+    	
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../views/AttributePanel.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit shape");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            AttributePanelController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.editShape(shape);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+	}
+    
     /**
      * initialize key event
      */
@@ -181,6 +217,11 @@ public class MainApp extends Application {
     public DrawAreaController getDaController() {
 		return daController;
 	}
+    
+    
+	
+	
+    
 
 
 }
