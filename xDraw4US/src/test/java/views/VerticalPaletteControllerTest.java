@@ -18,6 +18,25 @@ class VerticalPaletteControllerTest extends ApplicationTest {
         ma = new MainApp();
         ma.start(stage);
     }
+    
+    /**
+     * Test the shape drawing.
+     */
+    @Test public void drawingShapeTest() {
+    	// given: drawing sheet started with 0 shapes   	
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	
+    	//do: create a new rectangle shape
+    	clickOn("#rectangleButton");
+    	moveTo(ma.getPrimaryStage());
+    	press(MouseButton.PRIMARY);
+    	moveBy(40,30);
+    	release(MouseButton.PRIMARY);
+    	
+    	//expect: a new shape have been added to shapeList
+    	assertEquals(1,ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size(), "There must be 1 shape in shapesList");
+    }
 
     /**
      * Test the shape drawing.
@@ -41,6 +60,28 @@ class VerticalPaletteControllerTest extends ApplicationTest {
     	//expect: rectangle tool selected
     	assertEquals("circle", ma.getVpController().getSelectedTools(), "Selected tool must be circle.");
 
+    }
+    
+    /*
+     * Test the changing starting point functionnality
+     */
+    @Test public void changeStartPointDrawTest() {
+    	// given: starting point is set on center   	
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	assertEquals("center",ma.getVpController().getStartingPoint(), "Selected starting point must be \"center\" ");
+    	
+    	//do: change starting point to corner
+    	clickOn("#changeStartButton");
+    	
+    	//expect: starting point must be set on "corner"
+    	assertEquals("corner",ma.getVpController().getStartingPoint(), "Selected starting point must be \"corner\" ");
+    	
+    	//do: change starting point to center
+    	clickOn("#changeStartButton");
+    	
+    	//expect: starting point must be set on "corner"
+    	assertEquals("center",ma.getVpController().getStartingPoint(), "Selected starting point must be \"center\" ");
     }
 
 }

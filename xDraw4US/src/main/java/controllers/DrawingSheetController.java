@@ -63,11 +63,11 @@ public class DrawingSheetController {
 	public void keyPressedEvent(String Key) {
 		if (Key == "M") {
 			//drawingSheet.zoom(2);
-			drawingSheet.saveShapes();
+			//drawingSheet.saveShapes();
 		}
 		if (Key == "L") {
 			//drawingSheet.zoom(0.5);
-			drawingSheet.loadShapes();
+			//drawingSheet.loadShapes();
 		}
 		if(drawingSheet.getShapeSelected() != null) {
 			switch(Key) {

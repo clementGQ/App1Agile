@@ -20,10 +20,12 @@ class RootLayoutControllerTest extends ApplicationTest {
         ma.start(stage);
     }
 
+    
     /**
-     * Test the shape drawing.
+     * Test that new draw button creates a new canvas
      */
-    @Test public void newDrawTest() {
+    /*
+    @Test public void newTest() {
         // given: app started with one drawing
     	assertEquals(1,ma.getDaController().getDrawingSheetControllerList().size(), "There must be only one drawing at start.");
     	
@@ -33,6 +35,23 @@ class RootLayoutControllerTest extends ApplicationTest {
     	
     	//expect: shape is drawn
     	assertEquals(2,ma.getDaController().getDrawingSheetControllerList().size(), "There must be two drawings now.");
+    }
+    */
+    
+    /**
+     * Test that new draw button creates a new canvas
+     */
+    @Test public void newDrawTest() {
+    	// given: app started with 0 drawing
+    	assertEquals(true,ma.getDaController().getDrawingSheetControllerList().isEmpty(), "There must be 0 drawing sheet at start.");
+    	
+    	// do: new draw   	
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	
+    	//expect: a new canvas is set
+    	assertEquals(1,ma.getDaController().getDrawingSheetControllerList().size(), "There must be 1 drawing sheet");
+    	
     }
 
 
