@@ -19,21 +19,7 @@ class DrawAreaControllerTest extends ApplicationTest {
     }
 
     
-    @Test public void drawShapeTest() {
-        // given: app started with no shapes drawn
-    	assertTrue(ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().isEmpty(), "List of shapes must be empty");
-    	// do: draw a shape    	
-    		// select rectangle
-    	clickOn("#rectangleButton");
-    		// -> drag and drop
-    	moveTo(ma.getPrimaryStage());
-    	press(MouseButton.PRIMARY);
-    	moveBy(20,20);
-    	release(MouseButton.PRIMARY);
-    	
-    	//expect: shape is drawn
-    	assertEquals(1, ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size(), "List of shapes must contain one shape");
-    }
+   
 //
 //        
 }
