@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.RootLayoutController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="views.RootLayoutController">
   <!-- TODO Add Nodes -->
   <top>
     <MenuBar>
@@ -21,9 +21,9 @@
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu id="edit" mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
+            <MenuItem id="delete" mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

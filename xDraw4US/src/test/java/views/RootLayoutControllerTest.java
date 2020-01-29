@@ -20,9 +20,6 @@ class RootLayoutControllerTest extends ApplicationTest {
         ma.start(stage);
     }
 
-    /**
-     * Test the shape drawing.
-     */
     @Test public void newDrawTest() {
         // given: app started with one drawing
     	assertEquals(1,ma.getDaController().getDrawingSheetControllerList().size(), "There must be only one drawing at start.");
@@ -35,5 +32,26 @@ class RootLayoutControllerTest extends ApplicationTest {
     	assertEquals(2,ma.getDaController().getDrawingSheetControllerList().size(), "There must be two drawings now.");
     }
 
+    @Test public void eraseAllShapesTest() {
+    	// given: app starts with some shapes
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	clickOn("#rectangleButton");
+    	moveTo(ma.getPrimaryStage());
+    	for(int i = 0; i < 3; i++) {
+    		// -> drag and drop
+        	press(MouseButton.PRIMARY);
+        	moveBy(20+10*i,20+10*i);
+        	release(MouseButton.PRIMARY);
+    	}
+    	
+    	assertNotEquals(0, ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size(), "List of shapes must contain some shapes.");
+
+    	// do: click on erase button
+    	clickOn("#edit");
+    	clickOn("#delete");
+    	
+    	assertEquals(0, ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size(), "List of shapes must contain zero shape.");
+    }
 
 }
