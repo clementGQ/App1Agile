@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="600.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.VerticalPaletteController">
+<AnchorPane prefHeight="600.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.VerticalPaletteController">
   <!-- TODO Add Nodes -->
   <children>
     <ToolBar orientation="VERTICAL" prefHeight="600.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,6 +25,8 @@
                <graphic>
                   <Circle fill="WHITE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                </graphic></Button>
+            <Button fx:id="changeStartButton" mnemonicParsing="false" onAction="#onChangeStartClicked">
+            </Button>
       </items>
     </ToolBar>
   </children>

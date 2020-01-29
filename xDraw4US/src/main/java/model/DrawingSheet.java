@@ -1,20 +1,21 @@
 package model;
 
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 public class DrawingSheet extends Pane {
 
-	private ArrayList<Rectangle> rectanglesList = new ArrayList<>();	
-	private ArrayList<Line> lineList = new ArrayList<>();	
-	private ArrayList<Circle> circlesList = new ArrayList<>();	
-	private ArrayList<Shape> shapesList = new ArrayList<>();
+	private ArrayList<DShape> shapesList = new ArrayList<>();
+	
 	private Shape shapeSelected = null;
 	private int nbChildrenMax;
 	
@@ -26,49 +27,62 @@ public class DrawingSheet extends Pane {
 		this.nbChildrenMax = 1;
 	}
 
-	/**
-     * 
-     */
 	public void zoom(double mult) {
 		this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
-		
-		for(Rectangle rectangle: this.rectanglesList) {
-			rectangle.setWidth(rectangle.getWidth()*mult);
-			rectangle.setHeight(rectangle.getHeight()*mult);
-			rectangle.setX(rectangle.getX()*mult);
-			rectangle.setY(rectangle.getY()*mult);
-		}
-		for(Circle circle: this.circlesList) {
-			circle.setCenterX(circle.getCenterX()*mult);
-			circle.setCenterY(circle.getCenterY()*mult);
-			circle.setScaleX(circle.getScaleX()*mult);
-			circle.setScaleY(circle.getScaleY()*mult);
-		}
-		for(Line line: this.lineList) {
-			double normX = Math.abs(line.getStartX()-line.getEndX());
-			double normY = Math.abs(line.getStartY()-line.getEndY());
-			
-			if(line.getStartX()>line.getEndX()) {
-				line.setEndX(line.getEndX()*mult);
-				line.setStartX(line.getEndX()+normX*mult);
-			}
-			else {
-				line.setStartX(line.getStartX()*mult);
-				line.setEndX(line.getStartX()+normX*mult);
-			}
-			
-			if(line.getStartY()>line.getEndY()) {
-				line.setEndY(line.getEndY()*mult);
-				line.setStartY(line.getEndY()+normY*mult);
-			}
-			else {
-				line.setStartY(line.getStartY()*mult);
-				line.setEndY(line.getStartY()+normY*mult);
-			}
-			line.setStrokeWidth(line.getStrokeWidth()*mult);
+		for(DShape shape: this.shapesList) {
+			shape.zoom(mult);
 		}
 	}
 	
+	public void saveShapes() {
+		//Tests
+		String shapeString = shapesList.get(0).shapeToString();
+		System.out.println(shapeString);
+		
+		String token = shapeString.split("&")[0];
+		System.out.println(token);
+		if(token == "line") {
+			
+		}
+		
+		
+		
+
+		/*
+		try {
+            FileOutputStream fos = new FileOutputStream(new File("../shapeSave.xml"));
+            XMLEncoder encoder = new XMLEncoder(fos);
+            for(DShape shape: this.shapesList) {
+            	shape.saveShape();
+            	System.out.println(shapesList.get(0).getShape().toString());
+            	encoder.writeObject(shapesList.get(0).getShape());
+            }
+            encoder.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+	}
+	
+	public void loadShapes() {
+		try {
+            FileInputStream fis = new FileInputStream(new File("../shapeSave.xml"));
+            XMLDecoder decoder = new XMLDecoder(fis);
+            Object obj = decoder.readObject();
+            System.out.println(obj.toString());
+            shapesList.add((DShape)obj);
+            this.getChildren().add((Shape)obj);
+            decoder.close();
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public ArrayList<DShape> getShapesList() {
+		return shapesList;
+	}
+
 	/**
      * delete the content of the sheet
      */
@@ -76,27 +90,11 @@ public class DrawingSheet extends Pane {
 		this.setNbChildrenMax(1);
 		this.getChildren().clear();
 		this.getShapesList().clear();
-		this.setShapeSelected( null);
+		this.setShapeSelected(null);
 	}
 	
 	
 	//getters setters
-	
-	public ArrayList<Circle> getCirclesList() {
-		return circlesList;
-	}
-	
-	public ArrayList<Shape> getShapesList() {
-		return shapesList;
-	}
-	
-	public ArrayList<Line> getLinesList() {
-		return lineList;
-	}
-	public ArrayList<Rectangle> getRectanglesList() {
-		return rectanglesList;
-	}
-	
 	public void setNbChildrenMax(int nb) {
 		this.nbChildrenMax = nb;
 	}
@@ -104,6 +102,7 @@ public class DrawingSheet extends Pane {
 	public int getNbChildrenMax() {
 		return nbChildrenMax;
 	}
+	
 	public Shape getShapeSelected() {
 		return shapeSelected;
 	}
