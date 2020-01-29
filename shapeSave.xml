@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.4" class="java.beans.XMLDecoder">
+ <object class="javafx.scene.shape.Circle">
+  <void property="centerX">
+   <double>161.0</double>
+  </void>
+  <void property="centerY">
+   <double>146.0</double>
+  </void>
+  <void property="radius">
+   <double>96.93812459502195</double>
+  </void>
+ </object>
+</java>

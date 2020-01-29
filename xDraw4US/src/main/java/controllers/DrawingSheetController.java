@@ -17,6 +17,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.DCircle;
+import model.DLine;
+import model.DRectangle;
+import model.DShape;
 import model.DrawingSheet;
 import views.AController;
 import views.AttributePanelController;
@@ -36,6 +40,9 @@ public class DrawingSheetController {
 	private ColorPicker colorStrokePicker;
 	
 	private double x,y;
+	private double radius;
+	double width;
+	double height;
 	private boolean isShapeCreated = false;
 	
 	//builder
@@ -55,10 +62,12 @@ public class DrawingSheetController {
      */
 	public void keyPressedEvent(String Key) {
 		if (Key == "M") {
-			drawingSheet.zoom(2);
+			//drawingSheet.zoom(2);
+			drawingSheet.saveShapes();
 		}
 		if (Key == "L") {
-			drawingSheet.zoom(0.5);
+			//drawingSheet.zoom(0.5);
+			drawingSheet.loadShapes();
 		}
 		if(drawingSheet.getShapeSelected() != null) {
 			switch(Key) {
@@ -101,14 +110,26 @@ public class DrawingSheetController {
 		
 		drawingSheet.setOnMouseDragged((t) -> {
 			if(this.vpController.getSelectedTools() != "selection") {
-				drawingSheet.resetShapeSelected();													// reset la shape plus d�s un changement d'outil (Optionnel)
+				drawingSheet.resetShapeSelected();							// reset la shape plus d�s un changement d'outil (Optionnel)
 				Shape shapeCreated = null;
 				if(this.vpController.getSelectedTools() == "circle") {				//Circle
-					double radius = Math.sqrt(
-							Math.pow(x-t.getX(), 2) +
-							Math.pow(y-t.getY(), 2)
-							);
+					
+					if(this.vpController.getStartingPoint() == "center") {
+						radius = Math.sqrt(
+								Math.pow(x-t.getX(), 2) +
+								Math.pow(y-t.getY(), 2)
+								);
+					} else {
+						radius = Math.sqrt(
+								Math.pow(x-t.getX(), 2) +
+								Math.pow(y-t.getY(), 2)
+								)/2;
+					}
 					Circle circ = new Circle(x, y, radius);
+					if(this.vpController.getStartingPoint() == "corner") {
+						circ.setCenterX(x+(t.getX()-x)/2);
+						circ.setCenterY(y+(t.getY()-y)/2);
+					}
 				    circ.setStroke(colorStrokePicker.getValue());
 				    circ.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
 				    	
@@ -120,18 +141,29 @@ public class DrawingSheetController {
 					shapeCreated = circ;
 				}
 				if(this.vpController.getSelectedTools() == "rectangle") {	//Rectangle
-					double width = Math.abs(x-t.getX());
-					double height = Math.abs(y-t.getY());
-					Rectangle rect = new Rectangle(x, y, width, height);
-					if(x > t.getX()) {
-						rect.setX(x-width);
+					if(this.vpController.getStartingPoint() == "corner") {
+						width = Math.abs(x-t.getX());
+						height = Math.abs(y-t.getY());
 					}
-					if(y > t.getY()) {
-						rect.setY(y-height);
+					if(this.vpController.getStartingPoint() == "center") {
+						width = Math.abs(x-t.getX()) * 2;
+						height = Math.abs(y-t.getY()) * 2;
+					}
+					Rectangle rect = new Rectangle(x, y, width, height);
+					if(this.vpController.getStartingPoint() == "corner") {
+						if(x > t.getX()) {
+							rect.setX(x-width);
+						}
+						if(y > t.getY()) {
+							rect.setY(y-height);
+						}
+					}
+					if(this.vpController.getStartingPoint() == "center") {
+						rect.setX(x-width/2);	
+						rect.setY(y-height/2);
 					}
 					rect.setStroke(colorStrokePicker.getValue());
 					rect.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
-					
 					String imagePath = "images/" + fillingPatternSelection.getValue() + ".jpg";
 					Image image = new Image(imagePath); 
 					ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
@@ -141,6 +173,10 @@ public class DrawingSheetController {
 				}
 				if(this.vpController.getSelectedTools() == "line") {			//Line    TODO
 					Line l = new Line(x, y, t.getX(), t.getY());
+					if(this.vpController.getStartingPoint() == "center") { 
+						l.setStartX(x-(t.getX()-x));
+						l.setStartY(y-(t.getY()-y));
+					}
 					l.setStrokeWidth(Character.getNumericValue(strokeSizeSelection.getValue().charAt(0)));
 					l.setStroke(colorStrokePicker.getValue());
 					shapeCreated = l;
@@ -160,7 +196,6 @@ public class DrawingSheetController {
 		this.drawingSheet.setOnMouseReleased((t) -> {
 			if(isShapeCreated) {
 				Shape shape1 = (Shape)drawingSheet.getChildren().get(drawingSheet.getNbChildrenMax()-1);
-				
 				shape1.setOnMouseClicked((ts) -> {									//Selection d'une forme
 					if(this.vpController.getSelectedTools() == "selection") {
 						drawingSheet.resetShapeSelected();
@@ -171,23 +206,16 @@ public class DrawingSheetController {
 						mainApp.showShapeEditPanel(shape1);
 					}
 				});
-				shape1.setOnKeyPressed(e -> {
-					if (e.getCode() == KeyCode.RIGHT) {
-					    System.out.println("test");
-					}
-				});	
-				drawingSheet.getShapesList().add(shape1);
 				switch(this.vpController.getSelectedTools()) {
 				case "circle": 
-					drawingSheet.getCirclesList().add((Circle) shape1);
+					drawingSheet.getShapesList().add(new DCircle((Circle) shape1));
 					break;
 				case "rectangle": 
-					drawingSheet.getRectanglesList().add((Rectangle) shape1);
+					drawingSheet.getShapesList().add(new DRectangle((Rectangle) shape1));
 					break;
 				case "line": 
-					drawingSheet.getLinesList().add((Line) shape1);
+					drawingSheet.getShapesList().add(new DLine((Line) shape1));
 					break;
-				
 				}
 				drawingSheet.setNbChildrenMax(drawingSheet.getNbChildrenMax()+1);
 			}
