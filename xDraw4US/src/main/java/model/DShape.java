@@ -56,6 +56,14 @@ public abstract class DShape {
 	public void setPosY(double posY) {
 		this.posY = posY;
 	}
+	
+	public double getPosX() {
+		return posX;
+	}
+	
+	public double getPosY() {
+		return posY;
+	}
 
 	public void setTranslationX(double translationX) {
 		this.translationX = translationX;

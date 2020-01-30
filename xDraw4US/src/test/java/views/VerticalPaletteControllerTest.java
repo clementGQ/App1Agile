@@ -4,15 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.robot.BaseRobot;
-
 import controllers.MainApp;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 class VerticalPaletteControllerTest extends ApplicationTest {
 	MainApp ma;
-	BaseRobot r;
 	
     @Override public void start(Stage stage) {
         ma = new MainApp();
@@ -82,6 +80,93 @@ class VerticalPaletteControllerTest extends ApplicationTest {
     	
     	//expect: starting point must be set on "corner"
     	assertEquals("center",ma.getVpController().getStartingPoint(), "Selected starting point must be \"center\" ");
+    }
+    
+    @Test public void changeShapeTranslationTest() {
+    	// given: shape drawn in the center of the drawing sheet
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	clickOn("#circleButton");
+    	moveTo(ma.getPrimaryStage());
+    	press(MouseButton.PRIMARY);
+    	moveBy(40,30);
+    	release(MouseButton.PRIMARY);
+    	
+    	//do: change position of shape
+    	clickOn("#selectButton");
+    	moveTo(ma.getPrimaryStage());
+    	clickOn(MouseButton.PRIMARY);
+
+    	double shapeX = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getTranslateX();
+    	double shapeY = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getTranslateY();
+    	
+    	clickOn("#translationXField");
+    	write("9");
+    	clickOn("#translationYField");
+    	write("8");
+    	clickOn("#ok");
+    	
+    	//expect: position of the shape is different
+    	double shapeXnew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getTranslateX();
+    	double shapeYnew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getTranslateY();
+    	
+    	assertNotEquals(shapeXnew,shapeX, "X translation of the shape must be changed.");
+    	assertNotEquals(shapeYnew,shapeY, "Y translation of the shape must be changed.");
+
+    }
+    
+    @Test public void changeShapeRotationTest() {
+    	// given: shape drawn in the center of the drawing sheet
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	clickOn("#circleButton");
+    	moveTo(ma.getPrimaryStage());
+    	press(MouseButton.PRIMARY);
+    	moveBy(40,30);
+    	release(MouseButton.PRIMARY);
+    	
+    	//do: change rotation of shape
+    	clickOn("#selectButton");
+    	moveTo(ma.getPrimaryStage());
+    	clickOn(MouseButton.PRIMARY);
+
+    	double rotation = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getRotate();
+    	
+    	clickOn("#rotationField");
+    	write("9");
+    	clickOn("#ok");
+    	
+    	//expect: rotation of the shape is different
+    	double rotationNew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getRotate();
+
+    	assertNotEquals(rotationNew,rotation, "Rotation of the shape must be changed.");
+    }
+    
+    @Test public void changeShapeScaleTest() {
+    	// given: shape drawn in the center of the drawing sheet
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	clickOn("#circleButton");
+    	moveTo(ma.getPrimaryStage());
+    	press(MouseButton.PRIMARY);
+    	moveBy(40,30);
+    	release(MouseButton.PRIMARY);
+    	
+    	//do: change scale of shape
+    	clickOn("#selectButton");
+    	moveTo(ma.getPrimaryStage());
+    	clickOn(MouseButton.PRIMARY);
+
+    	double scale = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getScaleX();
+    	
+    	clickOn("#scaleField");
+    	write("9");
+    	clickOn("#ok");
+    	
+    	//expect: scale of the shape is different
+    	double scaleNew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getScaleX();
+
+    	assertNotEquals(scaleNew,scale, "Rotation of the shape must be changed.");
     }
 
 }

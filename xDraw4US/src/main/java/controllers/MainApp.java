@@ -61,7 +61,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("xDraw4US");
-        this.primaryStage.setHeight(600);    	
+        this.primaryStage.setMaximized(false);
+        this.primaryStage.setHeight(600);
         this.primaryStage.setWidth(800);
 
         initRootLayout();
