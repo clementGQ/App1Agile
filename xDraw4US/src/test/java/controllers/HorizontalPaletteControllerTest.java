@@ -84,6 +84,25 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     }   
     
     
-    
+    @Test public void adaptDrawingSheetTest() {
+        // given: app started in reduced mode with a drawing sheet
+    	assertFalse(ma.getPrimaryStage().isMaximized(), "Window must be minimized first.");
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	
+    	double drawingSheetWidth = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getWidth();
+    	double drawingSheetHeight = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getHeight();
+    	
+    	// do: maximize window
+    	clickOn("#minOrMaxButton");
+
+    	double drawingSheetWidthResized = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getWidth();
+    	double drawingSheetHeightResized = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getHeight();
+    	
+    	
+    	//expect: drawing sheet is resized
+    	assertTrue(drawingSheetWidthResized > drawingSheetWidth, "Drawing sheet width must be bigger.");
+    	assertTrue(drawingSheetHeightResized > drawingSheetHeight, "Drawing sheet height must be bigger.");
+    }
     
 }
