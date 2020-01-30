@@ -57,6 +57,27 @@ public class AttributePanelController extends AController {
         scaleField.setText(Double.toString(this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().getScaleX()));
         
     }
+    
+    
+    
+    
+    @FXML
+    private void updateShape() {
+        if (isInputValid()) {
+
+        	int activeTableIndex = this.mainApp.getDaController().getTable().getSelectionModel().getSelectedIndex();
+       
+            this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setTranslateX(Double.valueOf(translationXField.getText()));
+            this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setTranslateY(Double.valueOf(translationYField.getText()));
+            this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setRotate(Double.valueOf(rotationField.getText()));
+            this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setScaleX(Double.valueOf(scaleField.getText()));
+            this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setScaleY(Double.valueOf(scaleField.getText()));
+
+        }
+    }
+    
+    
+    
 
     /**
      * Returns true if the user clicked OK, false otherwise.
@@ -83,7 +104,7 @@ public class AttributePanelController extends AController {
             this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().setScaleY(Double.valueOf(scaleField.getText()));
             
             okClicked = true;
-            dialogStage.close();
+            mainApp.getPaletteLayout().setRight(null);
         }
     }
 
@@ -92,7 +113,7 @@ public class AttributePanelController extends AController {
      */
     @FXML
     private void handleCancel() {
-        dialogStage.close();
+        mainApp.getPaletteLayout().setRight(null);
     }
 
     /**
