@@ -26,6 +26,11 @@ public class MainApp extends Application {
     }
     
     private BorderPane rootLayout;
+    private BorderPane paletteLayout;
+    public BorderPane getPaletteLayout() {
+		return paletteLayout;
+	}
+    
     
     private RootLayoutController rlController;
     public RootLayoutController getRlController() {
@@ -56,7 +61,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("xDraw4US");
-        this.primaryStage.setResizable(false);
         this.primaryStage.setHeight(600);    	
         this.primaryStage.setWidth(800);
 
@@ -100,6 +104,7 @@ public class MainApp extends Application {
             FXMLLoader loader1 = new FXMLLoader();
             loader1.setLocation(MainApp.class.getResource("../views/PaletteLayout.fxml"));
             BorderPane paletteLayout = (BorderPane) loader1.load();
+            this.paletteLayout = paletteLayout;
             
             //horizontal palette
             FXMLLoader loader2 = new FXMLLoader();
@@ -129,9 +134,9 @@ public class MainApp extends Application {
             
             
             rootLayout.setCenter(paletteLayout);
-            paletteLayout.setTop(horizontalPalette);
-            paletteLayout.setLeft(verticalPalette);
-            paletteLayout.setCenter(drawArea);
+            this.paletteLayout.setTop(horizontalPalette);
+            this.paletteLayout.setLeft(verticalPalette);
+            this.paletteLayout.setCenter(drawArea);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,23 +149,15 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("../views/AttributePanel.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
+            this.paletteLayout.setRight(page);
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit shape");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
 
             // Set the person into the controller.
             AttributePanelController controller = loader.getController();
+            
             controller.setMainApp(this);
-            controller.setDialogStage(dialogStage);
             controller.editShape(shape);
 
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
 
             return controller.isOkClicked();
         } catch (IOException e) {

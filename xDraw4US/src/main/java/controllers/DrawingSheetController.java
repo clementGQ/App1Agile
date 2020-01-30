@@ -202,7 +202,6 @@ public class DrawingSheetController {
 						drawingSheet.setShapeSelected(shape1) ;
 						drawingSheet.getShapeSelected().setOpacity(0.5);
 						colorStrokePicker.setValue((Color)drawingSheet.getShapeSelected().getStroke());
-						System.out.println("thomas le morfale");
 						mainApp.showShapeEditPanel(shape1);
 					}
 				});
