@@ -44,6 +44,7 @@ public class SavePanelController extends AController {
         if(fileNameTextField.getText().length() != 0) {
         	int indexSheet = mainApp.getDaController().getTable().getSelectionModel().getSelectedIndex();
             mainApp.getDaController().getDrawingSheetControllerList().get(indexSheet).getDrawingSheet().saveShapes(fileNameTextField.getText());
+            dialogStage.close();
         }
     }
 	
