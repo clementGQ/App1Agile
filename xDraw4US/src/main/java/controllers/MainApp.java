@@ -9,12 +9,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Shape;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import views.AttributPanelController;
 import views.DrawAreaController;
 import views.HorizontalPaletteController;
+import views.ImportPanelController;
 import views.VerticalPaletteController;
 import views.RootLayoutController;
+import views.SavePanelController;
 
 
 public class MainApp extends Application {
@@ -161,6 +164,67 @@ public class MainApp extends Application {
         }
         
 	}
+    
+
+    public boolean showSavePanel() {
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../views/SavePanel.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Save");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            SavePanelController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    	
+	public boolean showImportPanel() {
+    	try {
+    		
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../views/ImportPanel.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Import");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            
+            ImportPanelController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.getFiles();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+    }
+}
+
     
     
 	/**
