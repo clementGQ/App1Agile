@@ -91,10 +91,12 @@ public class DRectangle extends DShape{
 
 	@Override
 	public void setImagePattern(String imagePath) {
-		this.imagePath = imagePath;
-		Image image = new Image(imagePath); 
-		ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
-		this.rectangle.setFill(radialGradient);
+		if(imagePath != "images/.jpg") {
+			this.imagePath = imagePath;
+			Image image = new Image(imagePath); 
+			ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+			this.rectangle.setFill(radialGradient);
+		}
 	}
 	
 }
