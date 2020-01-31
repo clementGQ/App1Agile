@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 
@@ -23,7 +22,6 @@ public class AttributePanelController extends AController {
     
 
     private Stage dialogStage;
-    private Shape shape;
     private boolean okClicked = false;
 
     /**
@@ -48,8 +46,7 @@ public class AttributePanelController extends AController {
      * 
      * @param shape
      */
-    public void editShape(Shape shape) {
-        this.shape = shape;
+    public void editShape() {
         int activeTableIndex = this.mainApp.getDaController().getTable().getSelectionModel().getSelectedIndex();
         translationXField.setText(Double.toString(this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().getTranslateX()));
         translationYField.setText(Double.toString(this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().getTranslateY()));
@@ -57,9 +54,6 @@ public class AttributePanelController extends AController {
         scaleField.setText(Double.toString(this.mainApp.getDaController().getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().getShapeSelected().getScaleX()));
         
     }
-    
-    
-    
     
     @FXML
     private void updateShape() {

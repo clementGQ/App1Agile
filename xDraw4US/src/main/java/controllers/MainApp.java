@@ -1,20 +1,21 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Shape;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import views.AttributPanelController;
 import views.DrawAreaController;
 import views.HorizontalPaletteController;
-import views.ImportPanelController;
 import views.VerticalPaletteController;
 import views.RootLayoutController;
 import views.SavePanelController;
@@ -191,36 +192,22 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+            
         }
     }
     	
-	public boolean showImportPanel() {
-    	try {
-    		
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../views/ImportPanel.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+	public void showImportPanel() {
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File("./src/main/java/saves"));
+		fileChooser.setTitle("Open Resource File");
+		File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Import");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-            
-            
-            ImportPanelController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setDialogStage(dialogStage);
-            controller.getFiles();
+		this.getDaController().newDrawingSheet();
 
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        int indexSheet = this.getDaController().getTable().getSelectionModel().getSelectedIndex();
+        ColorPicker cp = this.getHpController().getColorStrokePicker();
+        this.getDaController().getDrawingSheetControllerList().get(indexSheet).getDrawingSheet().loadShapes(selectedFile, cp, this, this.getVpController());
 	}
 
     

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="11.0.4" class="java.beans.XMLDecoder">
+ <int>2</int>
+ <string>circle&amp;245.0&amp;170.0&amp;145.7737973711325&amp;0.0&amp;0.0&amp;1.0&amp;1.0&amp;0.0&amp;0.0&amp;0.0&amp;0.0&amp;1.0&amp;images/pattern5.jpg</string>
+ <string>rectangle&amp;89.0&amp;75.0&amp;452.0&amp;114.0&amp;0.0&amp;0.0&amp;1.0&amp;1.0&amp;0.0&amp;0.0&amp;0.0&amp;0.0&amp;1.0&amp;images/pattern5.jpg</string>
+</java>

@@ -1,16 +1,10 @@
 package controllers;
 
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import model.DShape;
 import model.DrawingSheet;
-import views.AController;
-import views.AttributePanelController;
 import views.HorizontalPaletteController;
 import views.VerticalPaletteController;
 
