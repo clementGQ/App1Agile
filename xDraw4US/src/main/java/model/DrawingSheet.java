@@ -92,7 +92,7 @@ public class DrawingSheet extends Pane {
 	/**
 	 * Load Shapes
 	 */
-	public void loadShapes() {
+	public void loadShapes(ColorPicker cp, MainApp mainApp, VerticalPaletteController vpController) {
 		try {
             FileInputStream fis = new FileInputStream(new File(this.FILE_PATH));
 			XMLDecoder decoder = new XMLDecoder(fis);       
@@ -102,6 +102,8 @@ public class DrawingSheet extends Pane {
   
             	DShapeFactory dsFactory = new DShapeFactory();
             	DShape newShape = dsFactory.getShape(str.split("&")[0], str);
+            	
+            	this.addListener(newShape, cp, mainApp, vpController);
             	
             	this.getShapesList().add(newShape);
      			this.getChildren().add(newShape.getShape());

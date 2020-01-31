@@ -43,7 +43,7 @@ public class DrawingSheetController {
 			drawingSheet.saveShapes();
 		}
 		if (Key == "L") {
-			drawingSheet.loadShapes();
+			drawingSheet.loadShapes(colorStrokePicker, mainApp, vpController);
 			//Load Shape 
 		}
 	}
