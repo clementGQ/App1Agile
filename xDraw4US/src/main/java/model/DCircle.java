@@ -1,13 +1,14 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class DCircle extends DShape{
 	
-	double radius;
-	ImagePattern image;
+	String imagePath;
 	Circle circle;
 	
 	public DCircle(String inputString) {
@@ -21,22 +22,29 @@ public class DCircle extends DShape{
 		this.circle.setScaleX(Double.valueOf(tokens[6]));
 		this.circle.setScaleY(Double.valueOf(tokens[7]));
 		this.circle.setRotate(Double.valueOf(tokens[8]));
+		Color color = new Color(Double.valueOf(tokens[9]), Double.valueOf(tokens[10]), Double.valueOf(tokens[11]), 1);
+		this.circle.setStroke(color);
+		this.circle.setStrokeWidth(Double.valueOf(tokens[12]));
+		this.setImagePattern(tokens[13]);
 	}
 	
-	public DCircle(Circle circle) {
-		this.posX = circle.getCenterX();
-		this.posY = circle.getCenterY();
-		this.radius = circle.getRadius();
-		this.image = (ImagePattern) circle.getFill();
+	public DCircle(double x, double y, double cursorX, double cursorY, 
+			String startingPoint, String imagePath,
+			double strokeWidth, Color strokeColor) {
+		double xFinal = x;
+		double yFinal = y;
+		double radius = Math.sqrt(Math.pow(x-cursorX, 2)+Math.pow(y-cursorY, 2));
 		
-		this.circle = circle;
-	}
-	
-	public DCircle(double posX, double posY, double radius, ImagePattern image) {
-		this.posX = posX;
-		this.posY = posY;
-		this.radius = radius;
-		this.image = image;
+		if(startingPoint.compareTo("corner") == 0) {
+			radius = radius/2;
+			xFinal = x+(cursorX-x)/2;
+			yFinal = y+(cursorY-y)/2;
+		}
+		
+		this.circle = new Circle(xFinal, yFinal, radius);
+		this.setImagePattern(imagePath);
+		this.circle.setStroke(strokeColor);
+		this.circle.setStrokeWidth(strokeWidth);
 	}
 
 	@Override
@@ -55,27 +63,31 @@ public class DCircle extends DShape{
 	}
 
 	@Override
-	public void saveShape() {
-		this.posX = this.circle.getCenterX();
-		this.posY = this.circle.getCenterY();
-		this.radius = this.circle.getRadius();
-		this.translationX = this.circle.getTranslateX();
-		this.translationY = this.circle.getTranslateY();
-		this.scaleX = this.circle.getScaleX();
-		this.scaleY = this.circle.getScaleY();
-		this.rotation = this.circle.getRotate();
-	}
-
-	@Override
 	public String shapeToString() {
-		// TODO Auto-generated method stub
-		return null;
+		String separator = "&";
+		String shapeString = "circle";
+		shapeString += separator + Double.toString(this.circle.getCenterX());
+		shapeString += separator + Double.toString(this.circle.getCenterY());
+		shapeString += separator + Double.toString(this.circle.getRadius());
+		shapeString += separator + Double.toString(this.circle.getTranslateX());
+		shapeString += separator + Double.toString(this.circle.getTranslateY());
+		shapeString += separator + Double.toString(this.circle.getScaleX());
+		shapeString += separator + Double.toString(this.circle.getScaleY());
+		shapeString += separator + Double.toString(this.circle.getRotate());
+		shapeString += separator + Double.toString(((Color)this.circle.getStroke()).getRed());
+		shapeString += separator + Double.toString(((Color)this.circle.getStroke()).getGreen());
+		shapeString += separator + Double.toString(((Color)this.circle.getStroke()).getBlue());
+		shapeString += separator + Double.toString(this.circle.getStrokeWidth());
+		shapeString += separator + this.imagePath;
+		return shapeString;
 	}
 
 	@Override
-	public void stringToShape(String inputString) {
-		// TODO Auto-generated method stub
-		
+	public void setImagePattern(String imagePath) {
+		this.imagePath = imagePath;
+		Image image = new Image(imagePath); 
+		ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+		this.circle.setFill(radialGradient);
 	}
 
 }

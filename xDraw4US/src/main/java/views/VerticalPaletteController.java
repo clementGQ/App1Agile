@@ -68,6 +68,24 @@ public class VerticalPaletteController extends AController{
     	}
     }
     
+    public void handleZoom(double mult) {
+		DrawAreaController dac = this.mainApp.getDaController();
+		if(dac.getDrawingSheetControllerList().size() != 0) {
+			int activeTableIndex = dac.getTable().getSelectionModel().getSelectedIndex();
+			dac.getDrawingSheetControllerList().get(activeTableIndex).getDrawingSheet().zoom(mult,false);
+		}
+	}
+	
+	@FXML
+	public void handleZoomIn() {
+		handleZoom(2d); 
+	}
+	
+	@FXML
+	public void handleZoomOut() {
+		handleZoom(0.5d);
+		
+	}
     
     /**
      * Selection tool to select a line to draw.

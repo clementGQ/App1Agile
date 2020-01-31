@@ -1,6 +1,5 @@
 package model;
 
-
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.File;
@@ -9,80 +8,129 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import controllers.DShapeFactory;
+import controllers.MainApp;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import views.VerticalPaletteController;
 
 public class DrawingSheet extends Pane {
+	
+	private final double PREF_SIZE_WIDTH = 683;
+	private final double PREF_SIZE_HEIGHT = 455;
+	private final String FILE_PATH = "../shapeSave.xml";
 
 	private ArrayList<DShape> shapesList = new ArrayList<>();
 	
 	private Shape shapeSelected = null;
 	private int nbChildrenMax;
 	
-	//builder
+	private int zoomInApplied;
+	
+	/**
+	 * Constructor
+	 */
 	public DrawingSheet() {
 		super();
 		this.setStyle("-fx-background-color: white;");
-		this.setPrefSize(683,455);
+		this.setPrefSize(this.PREF_SIZE_WIDTH, this.PREF_SIZE_HEIGHT);
 		this.nbChildrenMax = 1;
+		this.zoomInApplied = 0;
 	}
-
-	public void zoom(double mult) {
-		this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
-		for(DShape shape: this.shapesList) {
-			shape.zoom(mult);
+	
+	/**
+	 * Apply Zoom
+	 * @param mult : factor multiplication
+	 * @param maximize : boolean = true for the fullScreen
+	 */
+	public void zoom(double mult, boolean maximize) {
+		if(maximize || !(mult<1 && this.zoomInApplied==0)) {
+			this.setPrefSize(this.getWidth()*mult,this.getHeight()*mult);
+			for(DShape shape: this.shapesList) {
+				shape.zoom(mult);
+			}
+			if(!maximize) {
+				this.zoomInApplied= (mult > 1d) ? this.zoomInApplied+1:this.zoomInApplied-1;
+			}
 		}
 	}
 	
+	
+	/**
+	 * Save shapes
+	 */
 	public void saveShapes() {
-		//Tests
-		String shapeString = shapesList.get(0).shapeToString();
-		System.out.println(shapeString);
-		
-		String token = shapeString.split("&")[0];
-		System.out.println(token);
-		if(token == "line") {
-			
+		while(this.zoomInApplied !=0) {
+			this.zoom(0.5,false);
 		}
-		
-		
-		
-
-		/*
+		File file = new File(this.FILE_PATH);
+		if (file.exists() && file.isFile()) {
+			file.delete();
+		}
 		try {
-            FileOutputStream fos = new FileOutputStream(new File("../shapeSave.xml"));
+			file.createNewFile();
+			FileOutputStream fos = new FileOutputStream(file);
             XMLEncoder encoder = new XMLEncoder(fos);
-            for(DShape shape: this.shapesList) {
-            	shape.saveShape();
-            	System.out.println(shapesList.get(0).getShape().toString());
-            	encoder.writeObject(shapesList.get(0).getShape());
-            }
-            encoder.close();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+            encoder.writeObject(this.shapesList.size());
+			for(DShape shape: this.shapesList) {
+				String shapeString = shape.shapeToString();
+				encoder.writeObject(shapeString);
+			}
+			encoder.close();
+	        fos.close();	
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 	}
 	
+	/**
+	 * Load Shapes
+	 */
 	public void loadShapes() {
 		try {
-            FileInputStream fis = new FileInputStream(new File("../shapeSave.xml"));
-            XMLDecoder decoder = new XMLDecoder(fis);
-            Object obj = decoder.readObject();
-            System.out.println(obj.toString());
-            shapesList.add((DShape)obj);
-            this.getChildren().add((Shape)obj);
-            decoder.close();
-            fis.close();
+            FileInputStream fis = new FileInputStream(new File(this.FILE_PATH));
+			XMLDecoder decoder = new XMLDecoder(fis);       
+            int size = (Integer) decoder.readObject();
+            for(int i=0; i<size; i++) {
+            	String str = decoder.readObject().toString();
+  
+            	DShapeFactory dsFactory = new DShapeFactory();
+            	DShape newShape = dsFactory.getShape(str.split("&")[0], str);
+            	
+            	this.getShapesList().add(newShape);
+     			this.getChildren().add(newShape.getShape());
+         		this.setNbChildrenMax(this.getNbChildrenMax()+1);            	
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 	}
-	
-	public ArrayList<DShape> getShapesList() {
-		return shapesList;
-	}
 
+	/**
+	 * Add a Listener onMouseClicked on a shape
+	 * @param dShape
+	 * @param cp
+	 * @param mainApp
+	 * @param vpController
+	 */
+	public void addListener(DShape dShape, ColorPicker cp, MainApp mainApp, VerticalPaletteController vpController) { 
+		dShape.getShape().setOnMouseClicked((ts) -> {
+			if(vpController.getSelectedTools() == "selection") {
+				this.resetShapeSelected();
+				this.setShapeSelected(dShape.getShape());
+				this.getShapeSelected().setOpacity(0.5);
+				cp.setValue((Color)this.getShapeSelected().getStroke());
+				mainApp.showShapeEditPanel(dShape.getShape());
+			}
+		});
+	}
+	
 	/**
      * delete the content of the sheet
      */
@@ -92,9 +140,22 @@ public class DrawingSheet extends Pane {
 		this.getShapesList().clear();
 		this.setShapeSelected(null);
 	}
-	
-	
+
+	/**
+	 * Reset the shape selected
+	 */
+	public void resetShapeSelected() {
+		if(shapeSelected != null) {
+			shapeSelected.setOpacity(1);
+			shapeSelected = null;
+		}
+	}
+
 	//getters setters
+	public void setShapeSelected(Shape shapeSelected) {
+		this.shapeSelected = shapeSelected;
+	}
+	
 	public void setNbChildrenMax(int nb) {
 		this.nbChildrenMax = nb;
 	}
@@ -106,14 +167,9 @@ public class DrawingSheet extends Pane {
 	public Shape getShapeSelected() {
 		return shapeSelected;
 	}
-	public void setShapeSelected(Shape shapeSelected) {
-		this.shapeSelected = shapeSelected;
-	}
-	public void resetShapeSelected() {
-		if(shapeSelected != null) {
-			shapeSelected.setOpacity(1);
-			shapeSelected = null;
-		}
+	
+	public ArrayList<DShape> getShapesList() {
+		return shapesList;
 	}
 
 }

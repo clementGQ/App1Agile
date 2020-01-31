@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import views.AttributPanelController;
 import views.DrawAreaController;
 import views.HorizontalPaletteController;
 import views.VerticalPaletteController;
@@ -23,6 +25,7 @@ public class MainApp extends Application {
     }
     
     private BorderPane rootLayout;
+    private BorderPane paletteLayout;
     
     private RootLayoutController rlController;
     public RootLayoutController getRlController() {
@@ -96,7 +99,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader1 = new FXMLLoader();
             loader1.setLocation(MainApp.class.getResource("../views/PaletteLayout.fxml"));
-            BorderPane paletteLayout = (BorderPane) loader1.load();
+            this.paletteLayout = (BorderPane) loader1.load();
             
             //horizontal palette
             FXMLLoader loader2 = new FXMLLoader();
@@ -134,32 +137,37 @@ public class MainApp extends Application {
         }
     }
     
-    /**
+    public boolean showShapeEditPanel(Shape shape) {
+    	
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../views/AttributPanel.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            this.paletteLayout.setRight(page);
+
+
+            // Set the person into the controller.
+            AttributPanelController controller = loader.getController();
+            
+            controller.setMainApp(this);
+            controller.editShape(shape);
+
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+	}
+    
+    
+	/**
      * initialize key event
      */
     private void initKeyEvent() {
     	rootLayout.setOnKeyPressed(e -> {
-    		if (e.getCode() == KeyCode.Z) {
-    			keyPressedEvent("Z");
-    		}
-    		if (e.getCode() == KeyCode.Q) {
-    			keyPressedEvent("Q");
-    		}
-    		if (e.getCode() == KeyCode.S) {
-    			keyPressedEvent("S");
-    		}
-    		if (e.getCode() == KeyCode.D) {
-    			keyPressedEvent("D");
-    		}
-    		if (e.getCode() == KeyCode.A) {
-    			keyPressedEvent("A");
-    		}
-    		if (e.getCode() == KeyCode.E) {
-    			keyPressedEvent("E");
-    		}
-    		if (e.getCode() == KeyCode.R) {
-    			keyPressedEvent("R");
-    		}
     		if (e.getCode() == KeyCode.M) {
     			keyPressedEvent("M");
     		}
@@ -181,6 +189,12 @@ public class MainApp extends Application {
     public DrawAreaController getDaController() {
 		return daController;
 	}
+    
+    public BorderPane getPaletteLayout() {
+		return paletteLayout;
+	}
+
+
 
 
 }
