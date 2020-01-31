@@ -27,6 +27,9 @@
                </graphic></Button>
             <Button fx:id="changeStartButton" mnemonicParsing="false" onAction="#onChangeStartClicked">
             </Button>
+            <!--<Pane HBox.hgrow="ALWAYS" />-->
+            <Button mnemonicParsing="false" onAction="#handleZoomIn" prefHeight="25.0" prefWidth="88.0" text="Zoom +" />
+            <Button mnemonicParsing="false" onAction="#handleZoomOut" prefHeight="25.0" prefWidth="87.0" text="Zoom -" />
       </items>
     </ToolBar>
   </children>

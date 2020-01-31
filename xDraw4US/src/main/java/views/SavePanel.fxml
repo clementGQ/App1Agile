@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="100.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="views.SavePanelController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Button fx:id="cancelButton" layoutX="219.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+    <Button fx:id="saveButton" layoutX="309.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleSaveButton" prefWidth="70.0" text="Save" />
+    <TextField fx:id="fileNameTextField" layoutX="100.0" layoutY="24.0" prefWidth="279.0" />
+    <Label fx:id="fileNameLabel" layoutX="14.0" layoutY="24.0" text="File name : " />
+  </children>
+</AnchorPane>

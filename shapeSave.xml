@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="11.0.4" class="java.beans.XMLDecoder">
- <object class="javafx.scene.shape.Circle">
-  <void property="centerX">
-   <double>161.0</double>
-  </void>
-  <void property="centerY">
-   <double>146.0</double>
-  </void>
-  <void property="radius">
-   <double>96.93812459502195</double>
-  </void>
- </object>
+ <int>3</int>
+ <string>rectangle&amp;2.0&amp;32.0&amp;272.0&amp;256.0&amp;0.0&amp;0.0&amp;1.0&amp;1.0&amp;0.0&amp;0.0&amp;0.0&amp;0.0&amp;1.0&amp;images/pattern5.jpg</string>
+ <string>rectangle&amp;75.0&amp;49.0&amp;296.0&amp;103.0&amp;0.0&amp;0.0&amp;1.0&amp;1.0&amp;0.0&amp;0.0&amp;0.0&amp;0.0&amp;1.0&amp;images/pattern5.jpg</string>
+ <string>circle&amp;472.0&amp;277.0&amp;70.09279563550022&amp;0.0&amp;0.0&amp;1.0&amp;1.0&amp;0.0&amp;0.0&amp;0.0&amp;0.0&amp;1.0&amp;images/pattern5.jpg</string>
 </java>

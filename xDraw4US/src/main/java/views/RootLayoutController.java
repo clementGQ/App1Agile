@@ -17,9 +17,9 @@ public class RootLayoutController extends AController {
 	/**
      * 
      */
-    @FXML
+	@FXML
     private void handleOpen() {
-    	
+    	mainApp.showImportPanel();
     }
 
     /**
@@ -27,8 +27,9 @@ public class RootLayoutController extends AController {
      */
     @FXML
     private void handleSave() {
+    	mainApp.showSavePanel();
     }
-    
+
     /**
      * Closes the current sheet.
      */
