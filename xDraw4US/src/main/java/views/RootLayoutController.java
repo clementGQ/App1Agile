@@ -19,8 +19,7 @@ public class RootLayoutController extends AController {
      */
 	@FXML
     private void handleOpen() {
-    	System.out.println("uyf");
-    	boolean isOkClicked = mainApp.showImportPanel();
+    	mainApp.showImportPanel();
     }
 
     /**

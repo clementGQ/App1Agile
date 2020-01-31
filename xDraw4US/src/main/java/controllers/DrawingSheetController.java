@@ -36,20 +36,6 @@ public class DrawingSheetController {
 	}
 	
 	/**
-     * Controls the keys events
-     */	
-	public void keyPressedEvent(String Key) {					// A retirer
-		if (Key == "M") {
-			drawingSheet.saveShapes();
-		}
-		if (Key == "L") {
-			drawingSheet.loadShapes(colorStrokePicker, mainApp, vpController);
-			//Load Shape 
-		}
-	}
-	
-	
-	/**
      * Controls the mouse events
      */
 	private void setMouseEvent() {

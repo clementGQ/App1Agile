@@ -65,8 +65,6 @@ public class MainApp extends Application {
 
         initRootLayout();
         showPalettes();
-        
-        initKeyEvent();
     }
 	
 	//main
@@ -163,8 +161,7 @@ public class MainApp extends Application {
             return false;
         }
         
-	}
-    
+	}    
 
     public boolean showSavePanel() {
     	try {
@@ -222,33 +219,9 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-    }
-}
-
-    
-    
-	/**
-     * initialize key event
-     */
-    private void initKeyEvent() {
-    	rootLayout.setOnKeyPressed(e -> {
-    		if (e.getCode() == KeyCode.M) {
-    			keyPressedEvent("M");
-    		}
-    		if (e.getCode() == KeyCode.L) {
-    			keyPressedEvent("L");
-    		}
-    	});
-    }
-    
-    /**
-     * activate the key action on the current sheet
-     */
-    public void keyPressedEvent(String key) {
-		int activeTableIndex = this.daController.getTable().getSelectionModel().getSelectedIndex();
-		this.daController.getDrawingSheetControllerList().get(activeTableIndex).keyPressedEvent(key);
+        }
 	}
-    
+
     
     public DrawAreaController getDaController() {
 		return daController;

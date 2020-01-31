@@ -41,7 +41,10 @@ public class SavePanelController extends AController {
      */
     @FXML
     private void handleSaveButton() {
-        System.out.println("save");
+        if(fileNameTextField.getText().length() != 0) {
+        	int indexSheet = mainApp.getDaController().getTable().getSelectionModel().getSelectedIndex();
+            mainApp.getDaController().getDrawingSheetControllerList().get(indexSheet).getDrawingSheet().saveShapes(fileNameTextField.getText());
+        }
     }
 	
 	public boolean isOkClicked() {

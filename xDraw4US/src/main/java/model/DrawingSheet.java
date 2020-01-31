@@ -23,7 +23,6 @@ public class DrawingSheet extends Pane {
 	
 	private final double PREF_SIZE_WIDTH = 683;
 	private final double PREF_SIZE_HEIGHT = 455;
-	private final String FILE_PATH = "../shapeSave.xml";
 
 	private ArrayList<DShape> shapesList = new ArrayList<>();
 	
@@ -64,11 +63,17 @@ public class DrawingSheet extends Pane {
 	/**
 	 * Save shapes
 	 */
-	public void saveShapes() {
+	public void saveShapes(String fileName) {
+		
+		System.out.println("save ");
+		
+		
+		String filePath = "./src/main/java/saves/" + fileName + ".xml";
+
 		while(this.zoomInApplied !=0) {
 			this.zoom(0.5,false);
 		}
-		File file = new File(this.FILE_PATH);
+		File file = new File(filePath);
 		if (file.exists() && file.isFile()) {
 			file.delete();
 		}
@@ -92,9 +97,9 @@ public class DrawingSheet extends Pane {
 	/**
 	 * Load Shapes
 	 */
-	public void loadShapes(ColorPicker cp, MainApp mainApp, VerticalPaletteController vpController) {
+	public void loadShapes(File file, ColorPicker cp, MainApp mainApp, VerticalPaletteController vpController) {
 		try {
-            FileInputStream fis = new FileInputStream(new File(this.FILE_PATH));
+            FileInputStream fis = new FileInputStream(file);
 			XMLDecoder decoder = new XMLDecoder(fis);       
             int size = (Integer) decoder.readObject();
             for(int i=0; i<size; i++) {
