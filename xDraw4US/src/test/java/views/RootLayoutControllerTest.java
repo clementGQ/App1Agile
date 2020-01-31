@@ -2,12 +2,24 @@ package views;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.robot.BaseRobot;
 
+
+
 import controllers.MainApp;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -74,6 +86,40 @@ class RootLayoutControllerTest extends ApplicationTest {
     	clickOn("#delete");
     	
     	assertEquals(0, ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size(), "List of shapes must contain zero shape.");
+    }
+    
+    @Test public void saveAndOpenDrawTest() {
+    	//given: app starts with some shapes
+    	clickOn("#file");
+    	clickOn("#newDrawButton");
+    	clickOn("#rectangleButton");
+    	moveTo(ma.getPrimaryStage());
+    	press(MouseButton.PRIMARY);
+    	moveBy(20,30);
+    	release(MouseButton.PRIMARY);
+    	int numberShapes = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapesList().size();
+        assertNotEquals(0, numberShapes, "List of shapes must contain some shapes.");
+    	
+    	//do: save drawing under name "drawing1.xml"
+    	clickOn("#file");
+    	clickOn("#saveButton");
+    	clickOn("#fileNameTextField");
+    	write("a");
+    	clickOn("#saveButton");
+    	
+    	//do: open the saved drawing
+    	clickOn("#file");
+    	clickOn("#openButton");
+    	type(KeyCode.A);
+    	type(KeyCode.ENTER);
+		
+    	
+    	//expect:
+    	assertEquals(numberShapes, ma.getDaController().getDrawingSheetControllerList().get(1).getDrawingSheet().getShapesList().size());
+    	
+
+    	
+
     }
 
 }

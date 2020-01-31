@@ -13,12 +13,12 @@
         <Menu id="file" mnemonicParsing="false" text="File">
           <items>
             <MenuItem id="newDrawButton" mnemonicParsing="false" onAction="#handleNew" text="New Draw" />
-            <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open" />
+            <MenuItem id="openButton" mnemonicParsing="false" onAction="#handleOpen" text="Open" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
-            <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close sheet" />
+            <MenuItem id="saveButton" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+            <MenuItem id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="Close sheet" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            <MenuItem id="exitButton" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </items>
         </Menu>
         <Menu id="edit" mnemonicParsing="false" text="Edit">
