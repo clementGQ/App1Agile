@@ -57,15 +57,13 @@ public class HorizontalPaletteControllerTest extends ApplicationTest {
     
     @Test public void selectPatternTest() {
         // given: app started with pattern "cube"
-    	assertEquals("cube", ma.getHpController().getFillingPattern(), "Selected pattern must be 'cube' at start.");
+    	assertEquals("pattern5", ma.getHpController().getFillingPattern(), "Selected pattern must be 'pattern5' at start.");
     	
     	// do: select the below menu option
-    	clickOn("#fillingPatternSelection");
-    	type(KeyCode.DOWN);
-    	type(KeyCode.ENTER);
+    	clickOn("#pattern4");
     	
     	//expect: "line" should be now selected
-    	assertEquals("line", ma.getHpController().getFillingPattern(), "Selected pattern must be 'line' now.");
+    	assertEquals("pattern4", ma.getHpController().getFillingPattern(), "Selected pattern must be 'pattern4' now.");
     }   
     
     @Test public void selectStrokeColorTest() {

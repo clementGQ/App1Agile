@@ -102,9 +102,11 @@ class VerticalPaletteControllerTest extends ApplicationTest {
     	
     	clickOn("#translationXField");
     	write("9");
+    	type(KeyCode.ENTER);
+    	
     	clickOn("#translationYField");
     	write("8");
-    	clickOn("#ok");
+    	type(KeyCode.ENTER);
     	
     	//expect: position of the shape is different
     	double shapeXnew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getTranslateX();
@@ -134,7 +136,7 @@ class VerticalPaletteControllerTest extends ApplicationTest {
     	
     	clickOn("#rotationField");
     	write("9");
-    	clickOn("#ok");
+    	type(KeyCode.ENTER);
     	
     	//expect: rotation of the shape is different
     	double rotationNew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getRotate();
@@ -160,8 +162,8 @@ class VerticalPaletteControllerTest extends ApplicationTest {
     	double scale = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getScaleX();
     	
     	clickOn("#scaleField");
-    	write("9");
-    	clickOn("#ok");
+    	write("2");
+    	type(KeyCode.ENTER);
     	
     	//expect: scale of the shape is different
     	double scaleNew = ma.getDaController().getDrawingSheetControllerList().get(0).getDrawingSheet().getShapeSelected().getScaleX();

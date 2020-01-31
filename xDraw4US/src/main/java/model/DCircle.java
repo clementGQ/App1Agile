@@ -1,5 +1,7 @@
 package model;
 
+import java.io.IOException;
+
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -84,10 +86,12 @@ public class DCircle extends DShape{
 
 	@Override
 	public void setImagePattern(String imagePath) {
-		this.imagePath = imagePath;
-		Image image = new Image(imagePath); 
-		ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
-		this.circle.setFill(radialGradient);
+		if(imagePath != "images/.jpg") {
+			this.imagePath = imagePath;
+			Image image = new Image(imagePath); 
+			ImagePattern radialGradient = new ImagePattern(image, 50, 50, 200, 200, false);
+			this.circle.setFill(radialGradient);
+		}
 	}
 
 }
